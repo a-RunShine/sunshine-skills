@@ -16,16 +16,17 @@
 
 | Skill | 说明 |
 |---|---|
-| [claude-skill-find-skill](./claude-skill-find-skill/) | Claude Code Skills 的发现与安装工具 |
-| [find-skill](./find-skill/) | 从 14 个源（按 GitHub stars 排序）查找并安装 Skills |
-| [frontend-design](./frontend-design/) | 前端设计指导：避免模板化、做出有辨识度的视觉 |
-| [md-pdf](./md-pdf/) | Markdown → PDF 渲染（4 套主题、CJK/Latin/数学符号字体路由） |
-| [officecli](./officecli/) | `.docx` / `.xlsx` / `.pptx` 的 AI 友好 CLI（无需 Office） |
-| [opencli-usage](./opencli-usage/) | OpenCLI 工具总览：把任意网站/CLI 统一为 `opencli <site> <cmd>` |
-| [pdf](./pdf/) | PDF 读写、合并、拆分、表单填写、加密、OCR |
-| [skill-creator](./skill-creator/) | 创建并迭代改进 Skills 的工作流（含评测） |
-| [web-design-guidelines](./web-design-guidelines/) | 按 Web Interface Guidelines 审查 UI 代码 |
-| [xiaohongshu-cli](./xiaohongshu-cli/) | 小红书 CLI：搜索、阅读、点赞、评论、关注、发布 |
+| [claude-skill-find-skill](./claude-skill-find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
+| [find-skill](./find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
+| [frontend-design](./frontend-design/) | Guidance for distinctive, intentional visual design when bui… |
+| [md-pdf](./md-pdf/) | Use when the user wants to convert Markdown content into a p… |
+| [officecli](./officecli/) | Create, analyze, proofread, and modify Office documents (.do… |
+| [opencli-usage](./opencli-usage/) | Use at the start of any OpenCLI session — this is the top-le… |
+| [pdf](./pdf/) | Use this skill whenever the user wants to do anything with P… |
+| [skill-creator](./skill-creator/) | Create new skills, modify and improve existing skills, and m… |
+| [web-design-guidelines](./web-design-guidelines/) | Review UI code for Web Interface Guidelines compliance. Use … |
+| [xiaohongshu-cli](./xiaohongshu-cli/) | Use xiaohongshu-cli for ALL Xiaohongshu (Little Red Book, 小红… |
+
 
 ## 添加方式
 

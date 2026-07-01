@@ -74,6 +74,7 @@ THEMES = {
         "table_header_bg": (240, 228, 201), "table_header_text": (92, 58, 33),
         "code_bg": (245, 234, 208),  "border": (217, 196, 162),
         "inline_code_bg": (250, 243, 225),
+        "quote_bg": (252, 246, 232),
     },
     "academic": {
         "name": "学术黑白",
@@ -84,6 +85,7 @@ THEMES = {
         "table_header_bg": (240, 240, 240), "table_header_text": (0, 0, 0),
         "code_bg": (248, 248, 248),  "border": (200, 200, 200),
         "inline_code_bg": (240, 240, 240),
+        "quote_bg": (244, 246, 250),
     },
     "bilibili-pink": {
         "name": "B站骚粉",
@@ -94,6 +96,7 @@ THEMES = {
         "table_header_bg": (253, 237, 243), "table_header_text": (251, 114, 153),
         "code_bg": (252, 240, 245),  "border": (251, 200, 215),
         "inline_code_bg": (252, 240, 245),
+        "quote_bg": (254, 240, 248),
     },
     "lol": {
         "name": "英雄联盟",
@@ -104,6 +107,7 @@ THEMES = {
         "table_header_bg": (24, 30, 60), "table_header_text": (200, 170, 110),
         "code_bg": (20, 24, 50),     "border": (60, 70, 110),
         "inline_code_bg": (24, 30, 60),
+        "quote_bg": (28, 32, 60),
     },
 }
 DEFAULT_THEME = "claude-brown"
@@ -293,7 +297,8 @@ class MarkdownPDF(FPDF):
                     self.set_x(x_start)
                 self.write(line_height, ch)
 
-        self.ln(line_height * 0.6)
+        # 收尾用完整行高（原 line_height * 0.6 偏短，会导致"段落/列表项 → 块级元素（代码块/引用块/表格）"时矩形起点侵入上一行文字）
+        self.ln(line_height)
 
     # --- 原始纯文本输出（标题等无需解析的场景）---
     def write_text(self, text, size=11, bold=False, align="L", color=None):
@@ -437,11 +442,84 @@ class MarkdownPDF(FPDF):
         self.ln(4)
 
     # --- 引用块 ---
-    def _render_blockquote(self, text):
+    def _render_blockquote(self, text_lines):
+        """引用块: 米黄背景 + 琥珀左竖条, 多行聚合为一块
+        text_lines: 已剥离 '> ' 前缀的连续行列表, 空字符串代表裸 > 行
+        """
+        if not text_lines:
+            return
+
+        # 1. 预处理: 剥离反引号 + 去掉加粗标记(放弃加粗, 仅保留文字)
+        cleaned = []
+        for t in text_lines:
+            t = _strip_backticks(t)
+            t = re.sub(r"\*\*(.+?)\*\*", r"\1", t)
+            cleaned.append(t)
+
+        # 2. 布局参数(mm)
+        indent = 5         # 整块距左边距
+        bar_w = 2          # 左竖条宽度
+        pad_x = 4          # 竖条与文字间距
+        pad_y = 2          # 上下内边距
+        right_pad = 2      # 右侧留白
+        base_size = 10.5
+        line_h = base_size * 0.5  # 5.25
+
+        # 3. 计算坐标
+        x0 = self.l_margin + indent
+        w_block = self.w - x0 - self.r_margin
+        x_text = x0 + bar_w + pad_x
+        w_text = w_block - bar_w - pad_x - right_pad
+        max_x_text = x_text + w_text
+
+        # 4. 预计算总高度: 用 multi_cell dry_run 拿到每行的子行数
+        self.set_font("Songti", "", base_size)
+        total_sub_lines = 0
+        for t in cleaned:
+            if t == "":
+                total_sub_lines += 1   # 裸 > 行占一行高
+                continue
+            subs = self.multi_cell(w_text, line_h, t,
+                                   dry_run=True, output="LINES")
+            total_sub_lines += len(subs) if subs else 1
+        block_h = total_sub_lines * line_h + 2 * pad_y
+
+        # 5. 分页: 整块高度超剩余空间则强制换页
+        if self.get_y() + block_h > self.h - self.b_margin:
+            self.add_page()
+
+        # 6. 画米黄背景矩形
+        y0 = self.get_y()
+        self.set_fill_color(*self._t("quote_bg"))
+        self.rect(x0, y0, w_block, block_h, "F")
+
+        # 7. 画琥珀左竖条(用 h1 色)
+        self.set_fill_color(*self._t("h1"))
+        self.rect(x0, y0, bar_w, block_h, "F")
+
+        # 8. 写文字(h2 色, Songti 字体, 逐字符, 自动换行)
         self.set_text_color(*self._t("h2"))
-        self._write_rich(text, base_size=10.5, line_height=5.0, indent=5)
-        # 额外加 2pt 间距,避免连续 > 引用块行间过近(原来只 3pt)
-        self.ln(2)
+        self.set_font("Songti", "", base_size)
+        self.set_xy(x_text, y0 + pad_y)
+        for t in cleaned:
+            if t == "":
+                self.ln(line_h)
+                continue
+            for ch in t:
+                if ch == "\n":
+                    self.ln(line_h)
+                    self.set_x(x_text)
+                    continue
+                ch_w = self.get_string_width(ch)
+                if self.get_x() + ch_w > max_x_text:
+                    self.ln(line_h)
+                    self.set_x(x_text)
+                self.write(line_h, ch)
+            # 每源行结束换行(下个源行从新行起)
+            self.ln(line_h)
+
+        # 9. 收尾: 块后 2mm 间距 + 恢复 body 色
+        self.set_y(y0 + block_h + 2)
         self.set_text_color(*self._t("body"))
 
     # --- 无序列表 ---
@@ -702,10 +780,20 @@ def convert_md_to_pdf(md_path, pdf_path, theme=DEFAULT_THEME, chapter_name=None)
             i += 1
             continue
 
-        # 引用块
-        if line.startswith("> "):
-            pdf._render_blockquote(line[2:])
-            i += 1
+        # 引用块: 聚合连续 > 行(含裸 > 空行)为一块
+        if line.startswith("> ") or line.strip() == ">":
+            block_lines = []
+            while i < len(lines):
+                cur = lines[i].rstrip()
+                if cur.startswith("> "):
+                    block_lines.append(cur[2:])  # 去掉 "> " 前缀
+                    i += 1
+                elif cur.strip() == ">":
+                    block_lines.append("")        # 裸 > 行: 块内空行
+                    i += 1
+                else:
+                    break
+            pdf._render_blockquote(block_lines)
             continue
 
         # 表格：当前行以 | 开头且下一行是 |---| 分隔线
