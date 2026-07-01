@@ -1,5 +1,15 @@
 # sunshine-skills
 
+<p align="left">
+  <a href="https://github.com/a-RunShine/sunshine-skills/stargazers"><img src="https://img.shields.io/github/stars/a-RunShine/sunshine-skills?style=for-the-badge&logo=github&logoColor=white&color=4c1" alt="Stars"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills/network/members"><img src="https://img.shields.io/github/forks/a-RunShine/sunshine-skills?style=for-the-badge&logo=github&logoColor=white&color=4c1" alt="Forks"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills/issues"><img src="https://img.shields.io/github/issues/a-RunShine/sunshine-skills?style=for-the-badge&logo=github&logoColor=white&color=4c1" alt="Issues"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills/commits/master"><img src="https://img.shields.io/github/last-commit/a-RunShine/sunshine-skills?style=for-the-badge&logo=git&logoColor=white&color=4c1" alt="Last Commit"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills"><img src="https://img.shields.io/github/repo-size/a-RunShine/sunshine-skills?style=for-the-badge&logo=github&logoColor=white&color=4c1" alt="Repo Size"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills"><img src="https://img.shields.io/github/languages/top/a-RunShine/sunshine-skills?style=for-the-badge&logo=python&logoColor=white&color=3776AB" alt="Top Language"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills"><img src="https://img.shields.io/github/languages/count/a-RunShine/sunshine-skills?style=for-the-badge&logo=github&logoColor=white&color=4c1" alt="Languages"></a>
+</p>
+
 个人收集的 Claude Code Skills 集合，覆盖文档处理、设计、办公、网页抓取等常见场景。
 
 ## 包含的 Skills
