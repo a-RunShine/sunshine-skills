@@ -16,6 +16,7 @@
 
 | Skill | 说明 |
 |---|---|
+| [markdown-converter](./markdown-converter/) | "Markitdown to Markdown: PDF, Office, HTML, data, OCR, audio… |
 | [claude-skill-find-skill](./claude-skill-find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [find-skill](./find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [frontend-design](./frontend-design/) | Guidance for distinctive, intentional visual design when bui… |
