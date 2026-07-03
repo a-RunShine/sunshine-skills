@@ -16,10 +16,11 @@
 
 | Skill | 说明 |
 |---|---|
-| [markdown-converter](./markdown-converter/) | "Markitdown to Markdown: PDF, Office, HTML, data, OCR, audio… |
 | [claude-skill-find-skill](./claude-skill-find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [find-skill](./find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [frontend-design](./frontend-design/) | Guidance for distinctive, intentional visual design when bui… |
+| [gold-mentor](./gold-mentor/) | Teach any concept, problem, or topic with vivid everyday ana… |
+| [markdown-converter](./markdown-converter/) | "Markitdown to Markdown: PDF, Office, HTML, data, OCR, audio… |
 | [md-pdf](./md-pdf/) | Use when the user wants to convert Markdown content into a p… |
 | [officecli](./officecli/) | Create, analyze, proofread, and modify Office documents (.do… |
 | [opencli-usage](./opencli-usage/) | Use at the start of any OpenCLI session — this is the top-le… |
