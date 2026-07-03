@@ -48,7 +48,7 @@ git rev-parse --is-inside-work-tree >/dev/null 2>&1 || { echo "ABORT: not a git 
 git diff --quiet HEAD || { echo "ABORT: working tree has uncommitted changes"; git status --short; exit 1; }
 ```
 
-> **兼容性注**：脚本故意不用 `set -u` 和 `mapfile` / `find -printf`，保持与 macOS 默认 bash 3.2 + BSD find 兼容。
+> **兼容性注**：脚本故意不用 `set -u` 和 `find -printf`，保持与 macOS 默认 bash 3.2 + BSD find 兼容。
 
 如果 preflight 失败，**立即停止**，不要进入下一步。
 
@@ -278,7 +278,6 @@ echo "Committed and pushed: $(git rev-parse --short HEAD)"
 "Bash(python3 -c *)",
 "Bash(python3 - *)",
 "Bash(set *)",
-"Bash(mapfile *)",
 "Bash(declare *)",
 "Bash(case *)",
 "Bash([ *)",
