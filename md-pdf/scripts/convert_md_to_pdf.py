@@ -743,6 +743,14 @@ def convert_md_to_pdf(md_path, pdf_path, theme=DEFAULT_THEME, chapter_name=None)
             i += 1
             continue
 
+        # <br> 标签：连续 <br> 转为垂直空白（答题空间）
+        stripped = line.strip()
+        if stripped and re.fullmatch(r"(<br\s*/?>\s*)+", stripped, re.IGNORECASE):
+            br_count = len(re.findall(r"<br\s*/?>", stripped, re.IGNORECASE))
+            pdf.ln(br_count * 5)  # 每个 <br> 约 5mm
+            i += 1
+            continue
+
         if line.strip() == "---":
             pdf.add_separator()
             i += 1

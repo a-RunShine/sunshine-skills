@@ -26,6 +26,7 @@
 | [opencli-usage](./opencli-usage/) | Use at the start of any OpenCLI session — this is the top-le… |
 | [pdf](./pdf/) | Use this skill whenever the user wants to do anything with P… |
 | [skill-creator](./skill-creator/) | Create new skills, modify and improve existing skills, and m… |
+| [sunshine-spec](./sunshine-spec/) | "Spec 驱动开发：通过协作式需求澄清，依次生成 spec.md → plan.md → task.md → chec… |
 | [web-design-guidelines](./web-design-guidelines/) | Review UI code for Web Interface Guidelines compliance. Use … |
 | [xiaohongshu-cli](./xiaohongshu-cli/) | Use xiaohongshu-cli for ALL Xiaohongshu (Little Red Book, 小红… |
 
