@@ -49,6 +49,8 @@ git diff --quiet HEAD || { echo "ABORT: working tree has uncommitted changes"; g
 ```
 
 > **兼容性注**：脚本故意不用 `set -u` 和 `find -printf`，保持与 macOS 默认 bash 3.2 + BSD find 兼容。
+>
+> **空数组 bug 修复**：bash 3.2/4+ 把 `"${arr[@]}"` 当数组为空时展开成单个空字符串而不是 0 个 token，导致 `for ... in "${X[@]}"` 跑一次空迭代。所有 for 循环开头加 `[ -z "$VAR" ] && continue` 守门。
 
 如果 preflight 失败，**立即停止**，不要进入下一步。
 
@@ -74,9 +76,11 @@ TO_REMOVE=()
 TO_KEEP_PROTECTED=()
 
 # 差集 1: 源中每个 → UPDATE 或 ADD
-for d in "${SRC_DIRS[@]+"${SRC_DIRS[@]}"}"; do
+for d in "${SRC_DIRS[@]}"; do
+  [ -z "$d" ] && continue
   found=0
-  for e in "${DST_ENTRIES[@]+"${DST_ENTRIES[@]}"}"; do
+  for e in "${DST_ENTRIES[@]}"; do
+    [ -z "$e" ] && continue
     [ "$d" = "$e" ] && { found=1; break; }
   done
   if [ "$found" -eq 1 ]; then
@@ -87,14 +91,17 @@ for d in "${SRC_DIRS[@]+"${SRC_DIRS[@]}"}"; do
 done
 
 # 差集 2: 目标中每个 → 源中也有则跳过；否则检查保护名单
-for e in "${DST_ENTRIES[@]+"${DST_ENTRIES[@]}"}"; do
+for e in "${DST_ENTRIES[@]}"; do
+  [ -z "$e" ] && continue
   found=0
-  for d in "${SRC_DIRS[@]+"${SRC_DIRS[@]}"}"; do
+  for d in "${SRC_DIRS[@]}"; do
+    [ -z "$d" ] && continue
     [ "$d" = "$e" ] && { found=1; break; }
   done
   [ "$found" -eq 1 ] && continue
   is_protected=0
-  for p in "${PROTECTED[@]+"${PROTECTED[@]}"}"; do
+  for p in "${PROTECTED[@]}"; do
+    [ -z "$p" ] && continue
     [ "$e" = "$p" ] && { is_protected=1; break; }
   done
   if [ "$is_protected" -eq 1 ]; then
@@ -140,6 +147,7 @@ RSYNC_OPTS=(
 )
 
 for skill in "${TO_ADD[@]}" "${TO_UPDATE[@]}"; do
+  [ -z "$skill" ] && continue
   echo ">>> rsync $skill/"
   rsync "${RSYNC_OPTS[@]}" "$SRC/$skill/" "$DST/$skill/"
 done
@@ -154,6 +162,7 @@ done
 
 ```bash
 for skill in "${TO_REMOVE[@]}"; do
+  [ -z "$skill" ] && continue
   # 第二层防护：即使 Step 2 分类漏判，这里也会拦住
   case "$skill" in
     .git|.gitignore|.claude|README.md|LICENSE|.DS_Store|.env|.env.example)
@@ -175,6 +184,7 @@ TMP_TABLE="$(mktemp -t readme_table.XXXXXX)"
   echo "| Skill | 说明 |"
   echo "|---|---|"
   for skill in "${TO_ADD[@]}" "${TO_UPDATE[@]}"; do
+    [ -z "$skill" ] && continue
     desc=$(awk '
       /^---$/{ c++; next }
       c==1 && /^description:[[:space:]]*/{
