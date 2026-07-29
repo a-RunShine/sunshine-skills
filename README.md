@@ -16,6 +16,10 @@
 
 | Skill | 说明 |
 |---|---|
+| [grill-me](./grill-me/) | A relentless interview to sharpen a plan or design. |
+| [grill-with-docs](./grill-with-docs/) | A relentless interview to sharpen a plan or design, which al… |
+| [grilling](./grilling/) | Grill the user relentlessly about a plan, decision, or idea.… |
+| [teach](./teach/) | Teach the user a new skill or concept, within this workspace… |
 | [canvas-design](./canvas-design/) | Create beautiful visual art in .png and .pdf documents using… |
 | [claude-skill-find-skill](./claude-skill-find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [find-skill](./find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |

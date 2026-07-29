@@ -449,12 +449,15 @@ class MarkdownPDF(FPDF):
         if not text_lines:
             return
 
-        # 1. 预处理: 剥离反引号 + 去掉加粗标记(放弃加粗, 仅保留文字)
+        # 1. 预处理: 剥离反引号 + 去掉加粗标记 + 移除 emoji
         cleaned = []
         for t in text_lines:
             t = _strip_backticks(t)
             t = re.sub(r"\*\*(.+?)\*\*", r"\1", t)
+            t = _EMOJI_RE.sub("", t)
             cleaned.append(t)
+        # 把空行 (裸 >) 跳过,不参与高度计算
+        non_empty = [t for t in cleaned if t != ""]
 
         # 2. 布局参数(mm)
         indent = 5         # 整块距左边距
@@ -470,55 +473,39 @@ class MarkdownPDF(FPDF):
         w_block = self.w - x0 - self.r_margin
         x_text = x0 + bar_w + pad_x
         w_text = w_block - bar_w - pad_x - right_pad
-        max_x_text = x_text + w_text
 
-        # 4. 预计算总高度: 用 multi_cell dry_run 拿到每行的子行数
+        # 4. 合并为单字符串 (用 \n 显式分行)
+        full_text = "\n".join(non_empty)
+
+        # 5. 预计算实际行数: 显式 \n 算一行,长内容按 w_text 自动折行算多行
         self.set_font("Songti", "", base_size)
-        total_sub_lines = 0
-        for t in cleaned:
-            if t == "":
-                total_sub_lines += 1   # 裸 > 行占一行高
-                continue
-            subs = self.multi_cell(w_text, line_h, t,
-                                   dry_run=True, output="LINES")
-            total_sub_lines += len(subs) if subs else 1
-        block_h = total_sub_lines * line_h + 2 * pad_y
+        subs = self.multi_cell(w_text, line_h, full_text,
+                               dry_run=True, output="LINES")
+        n_lines = len(subs) if subs else len(non_empty)
+        # 加回裸 > 空行 (一个空 > 占一行)
+        n_lines += sum(1 for t in cleaned if t == "")
+        block_h = n_lines * line_h + 2 * pad_y
 
-        # 5. 分页: 整块高度超剩余空间则强制换页
+        # 6. 分页: 整块高度超剩余空间则强制换页
         if self.get_y() + block_h > self.h - self.b_margin:
             self.add_page()
 
-        # 6. 画米黄背景矩形
+        # 7. 画米黄背景矩形
         y0 = self.get_y()
         self.set_fill_color(*self._t("quote_bg"))
         self.rect(x0, y0, w_block, block_h, "F")
 
-        # 7. 画琥珀左竖条(用 h1 色)
+        # 8. 画琥珀左竖条(用 h1 色)
         self.set_fill_color(*self._t("h1"))
         self.rect(x0, y0, bar_w, block_h, "F")
 
-        # 8. 写文字(h2 色, Songti 字体, 逐字符, 自动换行)
+        # 9. 写文字: multi_cell 一次性渲染,自动处理 \n 换行 + 宽度折行 + x 归位
         self.set_text_color(*self._t("h2"))
         self.set_font("Songti", "", base_size)
         self.set_xy(x_text, y0 + pad_y)
-        for t in cleaned:
-            if t == "":
-                self.ln(line_h)
-                continue
-            for ch in t:
-                if ch == "\n":
-                    self.ln(line_h)
-                    self.set_x(x_text)
-                    continue
-                ch_w = self.get_string_width(ch)
-                if self.get_x() + ch_w > max_x_text:
-                    self.ln(line_h)
-                    self.set_x(x_text)
-                self.write(line_h, ch)
-            # 每源行结束换行(下个源行从新行起)
-            self.ln(line_h)
+        self.multi_cell(w_text, line_h, full_text)
 
-        # 9. 收尾: 块后 2mm 间距 + 恢复 body 色
+        # 10. 收尾: 块后 2mm 间距 + 恢复 body 色
         self.set_y(y0 + block_h + 2)
         self.set_text_color(*self._t("body"))
 
