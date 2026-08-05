@@ -16,6 +16,12 @@
 # find-skill 本地缓存（catalogue.json 332KB + update.log，可能含本地数据）
 find-skill/cache/
 
+# memo-context 预览图（11 张 PNG 共 ~11MB，只在本地保留）
+memo-context/samples/
+
+# memo-context 的 MAIMEMO_TOKEN（已被上方 .env 规则覆盖，此处点名以防误改）
+memo-context/.env
+
 # 日志与运行时产物
 *.log
 __pycache__/

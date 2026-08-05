@@ -33,6 +33,7 @@
 | [manga-stories](./manga-stories/) | \| |
 | [markdown-converter](./markdown-converter/) | "Markitdown to Markdown: PDF, Office, HTML, data, OCR, audio… |
 | [md-pdf](./md-pdf/) | Use when the user wants to convert Markdown content into a p… |
+| [memo-context](./memo-context/) | Use when the user wants to turn today's Maimemo vocabulary i… |
 | [officecli](./officecli/) | Create, analyze, proofread, and modify Office documents (.do… |
 | [opencli-usage](./opencli-usage/) | Use at the start of any OpenCLI session — this is the top-le… |
 | [pdf](./pdf/) | Use this skill whenever the user wants to do anything with P… |
