@@ -16,6 +16,7 @@
 
 | Skill | 说明 |
 |---|---|
+| [green-screen-keyer](./green-screen-keyer/) | 抠"绿幕底 + 白描边贴纸"风格的 PNG，输出干净透明底。Make sure to use this skill wh… |
 | [canvas-design](./canvas-design/) | Create beautiful visual art in .png and .pdf documents using… |
 | [claude-skill-find-skill](./claude-skill-find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [find-skill](./find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
