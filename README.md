@@ -16,13 +16,16 @@
 
 | Skill | 说明 |
 |---|---|
-| [green-screen-keyer](./green-screen-keyer/) | 抠"绿幕底 + 白描边贴纸"风格的 PNG，输出干净透明底。Make sure to use this skill wh… |
+| [memo-weakness-card](./memo-weakness-card/) | Use when the user wants to automatically generate "today's w… |
+| [theme-factory](./theme-factory/) | Toolkit for styling artifacts with a theme. These artifacts … |
+| [web-artifacts-builder](./web-artifacts-builder/) | Suite of tools for creating elaborate, multi-component claud… |
 | [canvas-design](./canvas-design/) | Create beautiful visual art in .png and .pdf documents using… |
 | [claude-skill-find-skill](./claude-skill-find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [find-skill](./find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [frontend-design](./frontend-design/) | Guidance for distinctive, intentional visual design when bui… |
 | [gc-minimal-zine-poster-v0-1](./gc-minimal-zine-poster-v0-1/) | Generate Minimal Zine Poster v0.1 poetic paper-poster prompt… |
 | [gold-mentor](./gold-mentor/) | Teach any concept, problem, or topic with vivid everyday ana… |
+| [green-screen-keyer](./green-screen-keyer/) | 抠"绿幕底 + 白描边贴纸"风格的 PNG，输出干净透明底。Make sure to use this skill wh… |
 | [grill-me](./grill-me/) | A relentless interview to sharpen a plan or design. |
 | [grill-with-docs](./grill-with-docs/) | A relentless interview to sharpen a plan or design, which al… |
 | [grilling](./grilling/) | Grill the user relentlessly about a plan, decision, or idea.… |

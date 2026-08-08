@@ -1,12 +1,12 @@
 ---
 name: research
-description: Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent.
+description: Investigate a question against high-trust primary sources and return the findings to the main agent with per-claim primary-source citations. No file is written.
 ---
 
 Spin up a **background agent** to do the research, so you keep working while it reads.
 
-Its job:
+Investigate the question against **primary sources** — official docs, source code, specs, first-party APIs — not secondary write-ups of them.
 
-1. Investigate the question against **primary sources** — official docs, source code, specs, first-party APIs — not a secondary write-up of them. Follow every claim back to the source that owns it.
-2. Write the findings to a single Markdown file, citing each claim's source.
-3. Save it where the repo already keeps such notes. If those notes follow a filename convention, match it. Otherwise name the file with a plain Chinese title describing what was researched — e.g. `Redis 持久化机制调研.md` — and say where you put it.
+Return the findings as your **final message**, not as a file.
+
+Cite every claim back to its primary source (URL or path + section/version), and prefer verbatim quotes or concrete data points over paraphrase. The main agent receives your final text verbatim — keep the granularity of the sources.

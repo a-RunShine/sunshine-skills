@@ -4,10 +4,9 @@
 Inputs (in contexts/YYYY-MM-DD/):
     article.md          — Step 3 产出的文字稿，含 *word* 重点词标记
     annotations.json    — Step 5.5 产出的混合派标注
-    audio.mp3           — Step 4 产出的 TTS (optional)
 
 Output:
-    contexts/YYYY-MM-DD/page.html  — 单页 HTML（双侧边栏 + 暗色模式 + 音频）
+    contexts/YYYY-MM-DD/page.html  — 单页 HTML（双侧边栏 + 暗色模式 + 顶部 banner）
 
 Usage:
     python3 scripts/render_html.py                    # 用今天日期
@@ -322,21 +321,8 @@ section p.para-text em { font-style: normal; font-weight: 600; }
   background: transparent;
 }
 
-footer.audio-bar {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: var(--bg-soft); border-top: 1px solid var(--border);
-  padding: 10px 24px;
-  display: flex; align-items: center; gap: 12px;
-  z-index: 10;
-}
-footer.audio-bar audio { flex: 1; max-width: 600px; }
-footer.audio-bar .label {
-  font-size: 12px; color: var(--text-soft);
-  font-family: var(--font-mono);
-}
-
 @media print {
-  .toolbar, aside.sidebar, footer.audio-bar, .sidebar-toggle { display: none; }
+  .toolbar, aside.sidebar, .sidebar-toggle { display: none; }
   .layout { grid-template-columns: 1fr; }
   main { max-width: none; }
   section.paragraph { page-break-inside: avoid; }
@@ -367,10 +353,6 @@ function toggleTheme() {
 function setFontSize(size) {
   document.documentElement.style.setProperty('--font-base', size);
   localStorage.setItem('memo-font', size);
-}
-function setPlaybackRate(rate) {
-  const audio = document.getElementById('main-audio');
-  if (audio) audio.playbackRate = rate;
 }
 function toggleSidebar(side) {
   const layout = document.querySelector('.layout');
@@ -543,12 +525,6 @@ def render(meta: dict, paragraphs: list[str], annotations: dict, audio_path: str
       <option value="16px" selected>中字</option>
       <option value="18px">大字</option>
       <option value="20px">超大</option>
-    </select>
-    <select onchange="setPlaybackRate(this.value)">
-      <option value="0.75">0.75x</option>
-      <option value="0.9" selected>0.9x</option>
-      <option value="1">1.0x</option>
-      <option value="1.25">1.25x</option>
     </select>
     <button id="theme-btn" onclick="toggleTheme()">🌙 暗色模式</button>
     <button onclick="window.print()">🖨 导出 PDF</button>
