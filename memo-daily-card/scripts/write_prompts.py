@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-Step 2: 写 prompt 模板
+Step 2: 写 prompt 模板（分两批：薄弱 + 认识）
 
 读 cwd/.today-weak/cards-clean.json（Agent 在 Step 1.5 用 LLM 知识生成）
-→ 分图（每张 ≤ 12 词）→ 写 dense-prompt-N.txt 到 cwd/.today-weak/
+→ 按 category 拆薄弱/认识两批 → 每批分图（每张 ≤ 12 词）
+→ 写 dense-prompt-weak-N.txt / dense-prompt-known-N.txt 到 cwd/.today-weak/
 
 用法（从项目根目录跑）：
-  python3 ~/.claude/skills/memo-weakness-card/scripts/write_prompts.py
+  python3 ~/.claude/skills/memo-daily-card/scripts/write_prompts.py
 """
 import argparse
 import json
@@ -18,7 +19,7 @@ CARDS_FILE = OUT_DIR / "cards-clean.json"
 
 WORDS_PER_CHART = 12  # 每张图最多 12 词（3×4 网格）
 
-# Prompt 模板 - 引用 references/prompt-template.md 里的同一份
+# Prompt 模板 - 沿用 memo-weakness-card v1
 TEMPLATE = """A flat illustrated vocabulary poster, 16:9 landscape, 2K resolution.
 
 GRID LAYOUT: exactly 3 rows × 4 columns = 12 cells, in the same order as WORDS list below.
@@ -35,16 +36,16 @@ EACH CELL (top to bottom, in this exact order):
 1. MNEMONIC IMAGE (top ~40% of cell): a small cute illustration that visualizes the mnemonic_visual hint
 2. SPELLING (large bold black text) + phonetic + POS on same line, e.g. "clinic /ˈklɪnɪk/ n."
 3. MEANING_ZH (medium black text, Chinese)
-4. EXAMPLE SENTENCE (small black text, complete English sentence, **the target word is BOLD**)
+4. EXAMPLE SENTENCE (small black text, complete English sentence, the target word should be visually bold/emphasized within the sentence)
 
 WORDS ({n} entries, in grid order: row 1 left-to-right, then row 2, then row 3):
 
 {word_blocks}
 
 CRITICAL CONSTRAINTS:
-- ONLY bold the target word inside example sentences, do NOT bold anything else
+- Only make the target word visually bold/emphasized inside example sentences, do not bold anything else
 - Each cell must contain ALL 4 elements above, no missing
-- {n} cells in a strict 3×4 grid (or fewer for last chart), no overlap
+- {n} cells in a strict 3x4 grid, no overlap
 - Do NOT add any extra text, watermark, page number, or label outside the cells
 - Do NOT add a title bar or header
 """
@@ -71,7 +72,7 @@ def chunk_cards(cards: list[dict], size: int = WORDS_PER_CHART) -> list[list[dic
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="写 dense-prompt 模板")
+    parser = argparse.ArgumentParser(description="写 dense-prompt 模板（薄弱 + 认识分两批）")
     parser.add_argument(
         "--out-dir",
         type=Path,
@@ -91,15 +92,28 @@ def main() -> int:
         print(f"[ERROR] {cards_file} 是空数组，无词可写", file=sys.stderr)
         return 1
 
-    chunks = chunk_cards(cards)
-    print(f"[INFO] {len(cards)} words → {len(chunks)} 张图")
+    # 按 category 拆
+    weak_cards = [c for c in cards if c.get("category") == "weak"]
+    known_cards = [c for c in cards if c.get("category") == "known"]
+    print(f"[INFO] 薄弱 {len(weak_cards)} 词 + 认识 {len(known_cards)} 词，共 {len(cards)}")
 
-    for n, chunk in enumerate(chunks, 1):
-        prompt = fill_chart_prompt(chunk)
-        path = out_dir / f"dense-prompt-{n}.txt"
-        path.write_text(prompt)
-        print(f"[OK] wrote {path} ({len(chunk)} words, {len(prompt)} chars)")
+    written = 0
+    for batch_name, batch_cards in [("weak", weak_cards), ("known", known_cards)]:
+        if not batch_cards:
+            print(f"[INFO] {batch_name} 批为空，跳过")
+            continue
+        chunks = chunk_cards(batch_cards)
+        print(f"[INFO] {batch_name} 批 {len(batch_cards)} 词 → {len(chunks)} 张图")
+        for n, chunk in enumerate(chunks, 1):
+            prompt = fill_chart_prompt(chunk)
+            path = out_dir / f"dense-prompt-{batch_name}-{n}.txt"
+            path.write_text(prompt)
+            print(f"[OK] wrote {path} ({len(chunk)} words, {len(prompt)} chars)")
+            written += 1
 
+    if written == 0:
+        print(f"[ERROR] 薄弱 + 认识 批都为空，无 prompt 可写", file=sys.stderr)
+        return 1
     return 0
 
 

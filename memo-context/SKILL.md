@@ -1,289 +1,86 @@
 ---
 name: memo-context
-description: Use when the user wants to turn today's Maimemo vocabulary into a contextual story/novel/dialogue for listening practice, save context to a daily archive, or push specific words back into a Maimemo cloud wordbook. Triggers: "今日精读" / "今晚生成" / "讲个故事" / "用对话" / "讲没记住的" / "灌 X Y Z" / "出图" / "全图" / "不要图" / "跳过图" / "memo-context".
+description: Use when the user wants to turn today's Maimemo vocabulary into a contextual scene/novel/reading passage for memory reinforcement, then read it in a local HTML page with click-to-translate and per-word proficiency tagging. Triggers: "今日精读" / "今晚生成" / "讲个故事" / "小说" / "考研阅读" / "做阅读题" / "讲没记住的" / "灌 X Y Z" / "memo-context".
 ---
-
 # memo-context
 
-把墨墨今日词汇转成短文/小说/对话并按日存档，帮你从真实语境强化记忆。
+把墨墨今日词汇转成场景片段/小说/考研阅读，按日存档，并产出可阅读的 HTML（单词点击弹翻译 + 用户标熟练度 + 段落翻译折叠 + 今日单词筛选）。
 
 ## 模式
 
-- **A 短文** — 800-1000 词的连贯短文
-- **B 小说** — 1000-1500 词的章节，有角色有剧情
-- **C 对话** — 5-8 轮对话，2-3 人
-- **D 考研阅读**（default）— 550-650 词议论文（模仿经济学人/卫报风格）+ 5 道四选一（主旨/细节/推理/词义/态度）
+- **A 场景片段**（default）— 多个独立小场景，一个场景可以包含多个单词
+- **B 小说** — 500-600 词的有趣小说
+- **C 考研阅读**（optional）— 550-650 词议论文 + 5 道四选一
 
 **切换词：**
-- "讲个故事" / "来篇小说" / "小说" → B
-- "用对话" / "练口语" / "对话" → C
-- "短文" / "随便" / "来篇 A" → A
-- 默认（无切换词）→ D
+
+- "讲个故事" / "小说" / "来篇 B" → B
+- "考研阅读" / "做阅读题" / "来篇 C" → C
+- 默认 → A
 
 ## 步骤
 
 - **Step 1**: 拉取今日单词
 - **Step 2**: 选主线词 + 配角词
-- **Step 3**: 写内容（按 A/B/C/D 模式）
-- **Step 4**: 生成封面图（可选）
-- **Step 4.5**: 生成分段卡片（默认必做，可选跳过 / 全图变体）
-- **Step 5**: 存档
-- **Step 5.5**: 生成学霸标注（混合派）
-- **Step 6**: 渲染 HTML
-- **Step 7**: 等用户回灌（用户主导，不主动）
+- **Step 3**: 写文章 + 生成翻译（同次 LLM 调用）
+- **渲染**: `python3 scripts/render_html.py` 产出 `contexts/<日期>/page.html`
+
+---
 
 ### Step 1: 拉取今日单词
 
-**两条路径，看用户触发选：**
+**路径：**
 
-| 用户触发 | 用哪个端点 | 怎么筛 |
-|---|---|---|
-| 默认（"今日精读" 等）| `POST /study/get_today_items` | **合并 is_finished=true + is_finished=false 两次调用**（按 voc_id 去重），拿今日学习全集 55 词（= progress.total，跟墨墨 App "今日学习"列表 1:1）|
-| "讲没记住的" / "模糊的" / "忘的" | `POST /study/query_study_records` | 拉全量，客户端筛 `last_response ∈ {VAGUE, FORGET}` ∪ `tags ∋ STICKING` |
 
-**重要前置检查：** 先调 `POST /study/get_study_progress` 看今天学习进度（`finished/total`），**仅用于诊断"已学/未学"比例，不是词源**。
+| 用户触发              | 端点                          | 怎么筛                                                                                 |
+| --------------------- | ----------------------------- | -------------------------------------------------------------------------------------- |
+| 默认（"今日精读" 等） | `POST /study/get_today_items` | **合并 is_finished=true + is_finished=false 两次**（按 voc_id 去重），拿今日全集 55 词 |
 
-**`get_today_items` 必须合并两次（重要）**：
-- 18:00 跑时用户通常只学完 21 词（半学完）→ `is_finished=true` 返回 21，`is_finished=false` 返回 34
-- 23:00+ 用户已学完所有 55 词 → `is_finished=true` 返回 55，`is_finished=false` 返回 0
-- **任何时点都必须合并两次按 voc_id 去重**才能拿全 55 词
-- **不要**只调一次（半学完时会漏 34 词——这就是 2026-08-06 当晚 v1/v2 出错的根因）
-- **不 fallback** 到 `query_study_records`（用户明确要"只针对今天"，不要全量库）
+**`get_today_items` 必须合并两次**：18:00 半学完时 `is_finished=true` 返回 21、`is_finished=false` 返回 34；23:00+ 学完后只 `is_finished=true` 有 55 词。**任何时点都合并去重**才能拿全 55 词。**不要** fallback 到 `query_study_records`。
 
-API 详情见 `references/maimemo-api/index.md`（含 schema/字段语义/时区/限流）和 `references/maimemo-api/study.md`（5 个端点完整文档）。
+**字段 enum：**
 
-**字段 enum 速查：**
-- `get_today_items` 返回 `first_response`：`FAMILIAR` / `VAGUE` / `FORGET` / `WELL_FAMILIAR` / `CANCEL_WELL_FAMILIAR`（**注意 FORGET 不是 FORGOT**）
-- `get_today_items` 还返回 `is_new`（bool，新词/复习词）和 `is_finished`（bool，已学/未学）
-- `query_study_records` 返回 `last_response`（同 enum）+ `tags`（`STICKING` / `WELL_FAMILIAR`）+ `add_date` / `next_study_date` / `study_count`
-- **关键**：两个端点字段名不同，别混用——`get_today_items` 用 `first_response`，`query_study_records` 用 `last_response`
+- `first_response`：`FAMILIAR` / `VAGUE` / `FORGET` / `WELL_FAMILIAR` / `CANCEL_WELL_FAMILIAR`（**注意 FORGET 不是 FORGOT**）
+- `is_new`（新词/复习词）、`is_finished`（已学/未学）
+- `tags`：`STICKING` / `WELL_FAMILIAR`
 
-**完成条件：** 拿到合并后的词列表（`voc_spelling` + `first_response` + `is_new` + `tags`），理想情况 = 55 词（= progress.total），最少 ≥ 12 词
+API 详情见 `references/maimemo-api/study.md`。
 
-### Step 2: 选主线词 + 配角词
+**完成条件：** 拿到合并后的词列表（理想 55 词，最少 ≥ 12 词）
 
-**词源（重要）：从合并 is_finished 两次调用后的 55 词里挑。**
+---
+
+### Step 2: 选词
 
 ```python
-# 推荐拉法（必须合并两次）
-finished_items = get_today_items(is_finished=True, limit=200)    # 已学
-unfinished_items = get_today_items(is_finished=False, limit=200)  # 未学
-# 按 voc_id 去重合并
-seen = set()
-today_words = []
-for it in finished_items + unfinished_items:
+# 必须合并两次去重
+finished = get_today_items(is_finished=True, limit=200)
+unfinished = get_today_items(is_finished=False, limit=200)
+seen, today_words = set(), []
+for it in finished + unfinished:
     if it["voc_id"] not in seen:
-        seen.add(it["voc_id"])
-        today_words.append(it)
-# → 任何时点都拿全 55 词（= progress.total）
+        seen.add(it["voc_id"]); today_words.append(it)
 ```
 
-**挑词原则（按重要性降序，从 today_words 里按 is_new × first_response 分四类挑）：**
+所有词**全部进入待写列表**
 
-| 优先级 | 类别 | 字段判断 | 处理 |
-|---|---|---|---|
-| 1 | **新词 + 不熟悉** | `is_new=true AND first_response ∈ {VAGUE, FORGET}` 或 `tags ⊋ STICKING` | **必进主线**（"所有新学"+"第一次消化"）|
-| 1 | **复习词 + 不熟悉** | `is_new=false AND first_response ∈ {VAGUE, FORGET}` 或 `tags ⊋ STICKING` | **必进主线**（"部分不熟悉"复习词）|
-| 2 | **新词 + 熟悉** | `is_new=true AND first_response == FAMILIAR` | **全部进配角**（"所有新学"挂脸熟）|
-| 3 | **复习词 + 熟悉** | `is_new=false AND first_response == FAMILIAR` | **默认不写**（用户说"该用可以用"时再进配角）|
+---
 
-**数量规则：**
-- **主线 18-25 词**（按 today_words 动态调，**目标是 22 词**）— 每词 2-3 次，文中反复出现
-- **配角 0-20 词** — 剩余 today_words 各提 1 次挂脸熟
-- **底线**：today_words >= 12 时,主线 18-25;today_words < 12 时,**全部进主线**(无配角)
-- **不要因为 is_finished=false 0 词就跳过** —— 18:00 跑时是常态，合并后才能拿全 55 词
+### Step 3: 写文章 + 生成翻译（一次 LLM 调用）
 
-**挑完输出挑选理由**让用户 review（"今天挑 vivid、tangible、eloquent + grace 作主线，因为能串成'艺术展'故事"）。
+LLM 在同次调用中产出三件事（避免二次调用浪费 token + 上下文漂移）：
 
-**完成条件：** 主线词列表 + 配角词列表 + 挑选理由
+1. **article.md 主体** — 场景/小说/考研阅读（保留旧行为：`#word*` 标记重点词）
+2. **article.md 末尾 `## Translation` 块** — 每段一段中文翻译（每段顺序与正文一致）
+3. **annotations.json `word_translations` 字段** — 每个入选词的中文释义
 
-### Step 3: 写内容
+**通用要求（沿用旧版）：**
 
-按模式生成。
+- 所有入选词至少出现 1 次
+- 自然用词，标记每个词位置（vivid *[1]*）
 
-| 模式 | 长度 | 结构 |
-|---|---|---|
-| A 短文 | 500-600 词 | 起承转合 |
-| B 小说 | 500-600 词 | 一章完整剧情 |
-| C 对话 | 500-600 词（5-8 轮）| 2-3 人 |
-| D 考研阅读 | 文章 550-650 词 + 5 道四选一 | 4-5 段议论文（社科/教育/医学伦理/科技），模仿经济学人/卫报 |
+#### article.md 结构
 
-**通用要求：**
-- 主线词每词 2-3 次（被"真正消化"）
-- 配角词各提 1 次（挂个脸熟）
-- 内容必须自然，不为用词而用词
-- 文字稿里**标记每个词出现位置**（vivid *[1]*, *[2]*, *[3]*）
-
-### D 模式核心约束（考研阅读 — default）
-
-**文章硬约束：**
-- 词数 550-650，4-5 段，**生词密度 ≤ 3%**（约 ≤15 个生词）
-- 题材：社科/教育/医学伦理/科技政策类，**避开政治与中美国情**
-- 风格模仿经济学人/卫报：长难句占比 ≥ 30%（含 ≥2 个从句）、抽象学术名词（phenomenon/perception/institution/prevalence）、转折/让步词密集（however/yet/while/although/consequently）、回避口语化与第一二人称
-- 题文同序：题目顺序 ≈ 段落顺序（约 60% 准确度）
-
-**5 道题模板与顺序：**
-
-| # | 题型 | 题干标志 |
-|---|---|---|
-| 1 | 主旨大意 | `The passage is mainly about...` / `Which of the following best summarizes...` |
-| 2 | 细节定位 | `According to Paragraph X, ...` |
-| 3 | 推理判断 | `It can be inferred that...` / `The author implies that...` |
-| 4 | 词义猜测 | `The word "..." (in line X) is closest in meaning to` |
-| 5 | 态度观点 | `The author's attitude toward ... is one of` |
-
-**6 大干扰项手法（每题至少用 2 种）：**
-1. 偷换概念（张冠李戴）— 偷换主语/动作发出者/范围/时态/极性
-2. 望文生义 — 凭空给某名词加文中不存在的动宾搭配
-3. 细节杂糅 — 跨句拼凑，修饰关系断裂
-4. 因果倒置 — "A 导致 B" → "B 导致 A"
-5. 答非所问 — 文中提到但答错问点（例：题问作者态度，选项讲他人态度）
-6. 无中生有 — 完全捏造，原文无此信息
-
-**答案特征（决定哪个是正确选项）：**
-- 正确选项 = 原文某句的**同义改写**，不直接抄原句
-- 含 `some/perhaps/seem/about/probably` 缓和词的多为正确
-- 含 `certainly/extremely/never/always/must` 绝对化词的多为错误
-- 主旨题答案要能覆盖全文、不含细节性名词
-- 例证题答案在**例子前面的观点句**，不在例子本身
-
-**存档模板：**
-- Passage 段用词位置标记 *[1]*、*[2]*...
-- 题目与答案另起一节
-
-**深度参考（按需）：** `references/exam-format.md` 含完整考研大纲、来源刊物统计、英一/英二区别、生成 prompt 模板、自检清单。
-
-**完成条件：** 完整文字稿 + 单词使用记录（哪个词在哪段）
-
-### Step 4: 生成封面图（推荐）
-
-> **目的**：给单页 HTML 配一张主题头图，让页面不单调。**默认推荐做**，用户可要求跳过。
-
-**调用 Mavis 自带的 `image_synthesize` 工具：**
-
-```python
-image_synthesize(
-    requests=[{
-        "prompt": "<根据文章主题设计的 prompt>",
-        "output_file_path": "./contexts/YYYY-MM-DD/cover.png",
-        "aspect_ratio": "16:9",
-        "resolution": "2K",
-    }]
-)
-```
-
-**Prompt 设计原则**：
-- **场景化**：把文章的"画面感"用英文写出来（老屋/阁楼/手稿/咖啡馆/考场 等）
-- **风格统一**：油画感 / 电影剧照 / 写实摄影 选一种（推荐 cinematic painterly, 16:9 widescreen）
-- **色调参考**：根据故事情绪定（暖琥珀=怀旧/冷蓝灰=紧张/暗橙=压抑 等）
-- **避免**：抽象元素、文字水印、人脸特写（避免不自然）
-
-**Prompt 模板**：
-```
-A cinematic [场景] scene featuring [关键道具/人物]. 
-Soft [光线] light filters through, illuminating [氛围元素]. 
-The atmosphere is [情绪形容词], evoking [主题词]. 
-[风格要求] composition, [色调] tones, [光影要求] lighting, 16:9 widescreen.
-```
-
-**完成条件**：`cover.png` 写到 `contexts/YYYY-MM-DD/`
-
-**降级**：生成失败 → 直接进 Step 6，HTML 不带 banner 块，文章照常可用。
-
-### Step 4.5: 生成分段卡片（默认必做）
-
-> **目的**：把今日文章按段拆成 9:16 竖图卡片，方便手机阅读 + 小红书/朋友圈分享。**默认每次必做**（无触发词），用户说 `不要图` / `跳过图` 时跳过。
-
-**默认行为**：
-- 每次跑 memo-context 必做（无触发词）
-- **段数 ≤ 2 时跳过**（短文塞一组卡片太散）
-- **段落拆法**：`⌈N/2⌉` 张卡片（默认 2 段/卡）
-  - 3 段 → 2 张
-  - 5 段 → 3 张
-  - 6 段 → 3 张
-  - 8 段 → 4 张
-  - 10+ 段 → 5+ 张
-
-**输出位置**：
-```
-contexts/YYYY-MM-DD/
-├── card-1.png       # 段 1-2
-├── card-2.png       # 段 3-4
-└── card-N.png       # 段 (2N-1), (2N)
-```
-
-**调用 Mavis `image_synthesize`**：
-```python
-image_synthesize(
-    requests=[{
-        "prompt": "<见下方 Prompt 模板>",
-        "output_file_path": "./contexts/YYYY-MM-DD/card-N.png",
-        "aspect_ratio": "9:16",
-        "resolution": "1K",
-    }]
-)
-```
-
-**Prompt 模板（3 条硬约束防翻车）**：
-```
-A 9:16 vertical reading-card poster, warm cinematic painterly style.
-Top caption: "2026-08-05 — <article_title> · Part N of M".
-Thin horizontal divider.
-The main body renders the following English text CLEARLY and LEGIBLY
-in a clean serif typeface on a SOFT CREAM-PAPER BACKGROUND WITHOUT
-ANY HIGHLIGHT.
-
-CRITICAL HIGHLIGHTING RULE: ONLY the words wrapped in asterisks below
-get a small pale yellow rounded-rectangle background and slightly
-bolder weight. ALL other words MUST stay on plain cream background
-with NO yellow background, NO highlight, NO box, NO shading.
-Highlight exactly these and nothing else:
-
-"<article_paragraphs_joined_with_asterisked_main_words>"
-
-Render every single word, character, and punctuation mark EXACTLY
-as written. Do not abbreviate, summarize, paraphrase, translate,
-or omit. Do not add background highlight to non-asterisked words.
-Faint watercolor illustration of <scene matching this part's theme>
-glows softly in the bottom margin, low contrast, like a watermark.
-9:16 vertical, 1K resolution, no face close-up, no Chinese
-characters, no extra captions.
-```
-
-**底部插图 prompt（按段落位置选）**：
-- 段 1-2（开端/勘探）:高原日落 + 孤独身影 + 化石切片
-- 段 3-4（争议/资金）:博物馆实验室 + 显微镜 + 羽毛化石
-- 段 5-6（公开/反思）:展览厅 + 玻璃罩里的化石翅膀 + 聚光灯
-- 段 7+ :按文章主题自拟（古都/海洋/太空/职场...），保持"低对比度 watermark"风格
-
-**完成条件**：N 张 `card-N.png` 写到 `contexts/YYYY-MM-DD/`，跟 cover.png 放同目录
-
-**降级**：
-- 某张 card 生成失败 → 重试 1 次；仍失败则跳过该张，继续出下一张
-- 全失败 → 整个 Step 4.5 跳过（不阻塞主流程）
-
-**反悔触发词（跳过 Step 4.5）**：
-- `不要图` / `跳过图` / `无图` → 整个 Step 4.5 跳过
-
-**变体 — 全图（可选）**：
-- 触发词：`全图` / `长图` / `超高图`
-- 产物：`full-long.png`，9:16 **4K**（3072×5504），塞全部段落（500-700 词也可塞下）
-- **18:00 定时任务默认不带**（体积 ~20MB，zip 涨到 ~25MB）—— 只有手动跑才加
-
-### Step 5: 存档
-
-**新结构（2026-08-04 起）：** 每日内容存为目录，而不是单文件。
-
-```
-contexts/YYYY-MM-DD/
-├── article.md       # 文字稿
-├── annotations.json # 学霸标注（Step 5.5 产出）
-└── page.html        # 单页网页（Step 6 产出）
-```
-
-`article.md` 内容：
-
-文件结构（A/B/C 模式）：
 ```markdown
 # YYYY-MM-DD
 
@@ -291,105 +88,209 @@ contexts/YYYY-MM-DD/
 A 短文
 
 ## 主线词
-vivid, tangible, ...
+incidence, estate, indignation, ...
 
 ## 配角词
-abandon, ...
+postwar, wholly, paternal, ...
 
 ## 文字稿
-[内容 + 词位置标记]
+
+（段落 1：英文，含 *word* 重点词标记）
+
+（段落 2：英文，含 *word* 重点词标记）
+
+...
+
+## Translation
+
+（段落 1 中文翻译）
+
+（段落 2 中文翻译）
+
+...
 ```
 
-D 模式附加结构（紧跟 Passage 后追加）：
-```markdown
-## 题目
+**`## Translation` 约束：**
 
-1. The passage is mainly about ...
-   [A] ... [B] ... [C] ... [D] ...
+- 段数与正文段数**严格一致**
+- 中文地道自然，必要时调整语序（不要逐词死译）
+- 长度约为英文段的 60-80%
 
-2. ...
+#### annotations.json 结构（新版）
 
-3. ...
-
-4. ...
-
-5. ...
-
-## 答案与解析
-
-1. 【答案】B 【解析】定位句+同义替换+干扰项手法
-2. ...
-3. ...
-4. ...
-5. ...
+```json
+{
+  "date": "2026-08-08",
+  "mode": "A",
+  "title": "The Whitmore Estate",
+  "word_translations": {
+    "incidence": "n. 发生率",
+    "estate": "n. 房地产；遗产",
+    "indignation": "n. 愤慨；义愤",
+    "postwar": "adj. 战后的",
+    "..."
+  },
+  "main_words": ["incidence", "estate", ...],
+  "supporting_words": ["postwar", "wholly", ...]
+}
 ```
 
-**完成条件：** `article.md` 写入 `contexts/YYYY-MM-DD/`
+**字段约束：**
 
-### Step 5.5: 生成学霸标注（混合派）
+- `word_translations`：覆盖**所有** main_words + supporting_words，**键名用单词原形小写**，值为简短中文释义（含词性 + ≤ 15 字）
+- 不再有 `paragraphs[].cards`（旧版混合派标注卡已删除，HTML 不再渲染）
+- 不再有封面图 / 音频字段（新版页面无头图无音频条）
 
-> **目的**：让每段的关键词有"考点 + 口诀"双视角标注，强化记忆 + 应试能力。
+#### LLM Prompt 模板（追加到现有 Step 3 prompt 末尾）
 
-**调 LLM 生成 → 写入 `contexts/YYYY-MM-DD/annotations.json`**
+```
+# 翻译产出（同次调用）
 
-**标注风格（混合派）**：
-- **考试派**（每段每词必出）：考点·搭配 / 考点·构词 / 考点·辨析 / 易混对比 / 考点·频考
-- **记忆派**（关键难词加 1 个）：谐音口诀 / 词根串联 / 画面联想 / 搭配口诀
+输出三件事：
+1. 文章正文（含 *word* 标记，保留原 Step 3 风格）
+2. 文章末尾 `## Translation` 块：每段一段中文翻译，段数与正文一致
+3. JSON 块（用 ```json ... ``` 包裹，不要其他解释）：
 
-**Prompt 模板**：见 `references/annotation-style.md` § 3（LLM Prompt 模板）— 复制粘贴替换 `{{...}}` 变量。
+{
+  "date": "{{TODAY}}",
+  "mode": "{{MODE}}",
+  "title": "{{TITLE}}",
+  "word_translations": {
+    "word1": "n. 释义",
+    "word2": "v. 释义",
+    ...
+  },
+  "main_words": [...按选词顺序],
+  "supporting_words": [...]
+}
 
-**JSON schema**：见 `references/annotation-style.md` § 1
+约束：
+- word_translations 必须覆盖所有 main_words + supporting_words
+- 释义格式："词性. 中文释义"，多个义项用；分隔
+- 不要写"详见词典""常用词"等无信息内容
+- JSON 顶层无注释，键名用单词原形小写
+```
 
-**完成条件：** `annotations.json` 写入，结构符合 schema（每段 1-3 张卡，至少 1 张考试派）
+---
 
-### Step 6: 渲染 HTML
-
-调 `scripts/render_html.py` 把 article.md + annotations.json 渲染成单页网页。
+## 渲染
 
 ```bash
-python3 .claude/skills/memo-context/scripts/render_html.py --date YYYY-MM-DD
+python3 scripts/render_html.py                    # 用今天日期
+python3 scripts/render_html.py --date 2026-08-08  # 指定日期
+python3 scripts/render_html.py --dir contexts/<dir>  # 指定目录
 ```
 
-**输出**：`contexts/YYYY-MM-DD/page.html`
+读 `article.md` + `annotations.json`，产出 `contexts/<日期>/page.html`（居中单栏 + 两个 tab）。
 
-**关于封面图**：脚本会**自动检测** `cover.png`（Step 4 产物），存在就嵌入到页面顶部的 banner 块；不存在就不渲染 banner（HTML 照常可用）。要强制跳过用 `--no-cover`。
+**输入校验（缺一即报错退出）：**
 
-**HTML 设计**：
-- **顶部头图 banner**（如 cover.png 存在）：360px 高，object-fit: cover，左下角斜体 caption
-- **双侧边栏**（可收放）：左 = 词表（点词跳转 + 闪红），右 = 标注卡（按段分组 details 折叠）
-- **顶部工具栏**：字号 / 暗色模式 / 导出 PDF
-- **暗色模式 highlight 改下划线**（避免"白字黄底"违和）+ 头图自动调暗 15%
+- `article.md` 存在
+- `annotations.json` 存在且含 `word_translations` 字段
+- `article.md` 含 `## Translation` 块（段落数 ≥ 1）
 
-**完成条件：** `page.html` 生成（用户用浏览器打开本地路径可看）
+**输出：** 单文件 `page.html`，内嵌 CSS+JS，无外部依赖（除 Google Fonts 可选）。
 
-### Step 7: 等用户回灌（用户主导，不主动）
+---
 
-**不主动回灌。** 等用户说：
-- "灌 X Y Z" → 灌指定词
-- "灌带 * 的" / "都灌" → 灌所有标记词
-- "灌主线" → 灌所有主线词
+## 页面功能
 
-**回灌执行：**
-- `POST /open/api/v1/notepads` 创建云词本
-- `notepad.content` = 一行一个词（可用 `# 章节` 分组）
-- `notepad.title` = `今日精读-YYYY-MM-DD`
-- `notepad.brief` = 一句今日语境摘要
-- `notepad.tags` = `["memo-context"]`
+### 两个 tab
 
-**完成条件：**
-- 用户没说灌 → 停在这
-- 用户说灌 → 调 API + 告诉用户"已灌 X 个词，打开墨墨 App 就能看到"
 
-## Access Token
+| tab         | 功能                                                                                                                                         |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| 📖 阅读     | 居中段落（680px 行宽），重点词下划虚线，点击弹翻译+熟练度卡片；段落末尾"显示中文翻译"折叠/展开；划选任意单词弹熟练度小条并用对应色荧光笔高亮 |
+| 📚 今日单词 | 默认按段落出现顺序平铺所有 main_words + supporting_words；顶部筛选按钮：全部 / 陌生 / 模糊 / 熟练；点击单词弹翻译+熟练度卡片                 |
 
-第一次跑问用户要墨墨 access token，存到 `./.claude/skills/memo-context/.env`（项目本地）。
+### 单词交互
 
-后续读这个文件。401（过期）时重新问。
 
-## 注意事项
+| 类型                  | 视觉                                     | 点击行为                                                          |
+| --------------------- | ---------------------------------------- | ----------------------------------------------------------------- |
+| `*word*` 标记的入选词 | 下划虚线（砖红`#c0392b`，offset 4px）    | 弹 280px 浮动卡片：标题（单词 + ×关闭）+ 中文释义 + 熟练度三按钮 |
+| 划选的任意词          | 默认无样式；标熟练度后用对应色荧光笔高亮 | 弹 200px 浮动小条：熟练度三按钮（无翻译，因非入选词）             |
 
-- **回灌不主动** — 必须用户说"灌"才执行
-- **限流** — 墨墨 API：10秒 20 / 60秒 40 / 5小时 2000 次。每天 1-3 篇内容不会撞限流
-- **失败降级** — API 拉不到词 → 提示检查 token
-- **客户端时区** — API 字段 `*_date` 是 UTC，但 anchor 在每天 16:00Z（即北京时间当天 0 点）。判断"今天"用 `next_study_date.startswith("2026-08-03")` 这种字符串前缀匹配就行，不用 DateTime 换算
-- **D 模式出题标准** — 完整硬约束已写在 Step 3 D 模式核心约束块（题型/干扰项/答案特征/写作风格）。`references/exam-format.md` 是深度出处（含考研大纲、来源刊物、英一/英二差异、生成 prompt 模板、自检清单），需要时再读
+**两种视觉正交：** 入选词的下划虚线**不**因熟练度变化，荧光笔**只**出现在划选的非入选词上（或入选词的标熟练度反馈用卡片，不改下划）。
+
+### 熟练度交互
+
+
+| 行为                          | 结果                               |
+| ----------------------------- | ---------------------------------- |
+| 单击 🟢熟练 / 🟡模糊 / 🔴陌生 | 设为对应状态；再点同色清除（无色） |
+| 弹窗 /× 关闭                 | 不改熟练度，仅关闭                 |
+| 顶部 🗑 清空按钮              | 二次确认后清空今日所有熟练度       |
+
+**存储：** localStorage `memo-proficiency-YYYY-MM-DD` → `{word: "熟悉"|"模糊"|"陌生"}`
+
+**颜色：**
+
+- 熟练 `#2ecc71`（绿）
+- 模糊 `#f1c40f`（黄）
+- 陌生 `#e74c3c`（红）
+
+荧光笔透明度 ≈ 25-35%（不挡文字）。
+
+### 工具栏
+
+
+| 按钮           | 功能                                                     |
+| -------------- | -------------------------------------------------------- |
+| 🌙 / ☀️ 主题 | 切换亮 / 暗色模式（localStorage 记忆）                   |
+| Aa 字号        | 14px / 16px / 18px / 20px                                |
+| 🗑 清空        | 二次确认后清空今日熟练度                                 |
+| 🖨 导出 PDF    | window.print()（配合 @media print CSS：单栏 + 无工具栏） |
+
+### 视觉风格
+
+- 背景：亮 `#f7f5f0` / 暗 `#1a1714`
+- 字体：Georgia / 思源宋体 / -apple-system
+- 强调色：砖红 `#c0392b`（hover/focus/重点词下划）
+- 段落：居中 680px、行高 1.95、字号 16px（默认）
+- 间距：段落间 32px（段标签距上段 24px）
+- 段标签：`P1` `P2` …（小字、衬线、橙色，左对齐在段首上方）
+
+---
+
+#### B 小说
+
+500-600 词单章节，有角色有剧情，所有词至少出现 1 次。`## Translation` 块为整篇小说的中文翻译（1 段）。
+
+---
+
+#### C 考研阅读（optional）
+
+550-650 词议论文 + 5 道四选一（主旨/细节/推理/词义/态度）。**严格约束**：
+
+- 题材：社科/教育/医学伦理/科技政策，**避开政治与中美国情**
+- 风格：模仿经济学人/卫报 — 长难句占比 ≥ 30%（含 ≥2 个从句）、抽象学术名词（phenomenon/perception/institution/prevalence）、转折/让步词密集（however/yet/while/although/consequently）、回避口语化与第一二人称
+- 生词密度 ≤ 3%
+- 题文同序：题目顺序 ≈ 段落顺序（约 60% 准确度）
+
+**5 道题模板与顺序：**
+
+
+| # | 题型     | 题干标志                                              |
+| - | -------- | ----------------------------------------------------- |
+| 1 | 主旨大意 | `The passage is mainly about...`                      |
+| 2 | 细节定位 | `According to Paragraph X, ...`                       |
+| 3 | 推理判断 | `It can be inferred that...`                          |
+| 4 | 词义猜测 | `The word "..." (in line X) is closest in meaning to` |
+| 5 | 态度观点 | `The author's attitude toward ... is one of`          |
+
+**6 大干扰项手法**（每题至少用 2 种）：偷换概念 / 望文生义 / 细节杂糅 / 因果倒置 / 答非所问 / 无中生有
+
+**答案特征：** 正确选项 = 原文某句的**同义改写**；含 `some/perhaps/seem/about/probably` 缓和词的多为正确；含 `certainly/extremely/never/always/must` 绝对化词的多为错误；例证题答案在**例子前面的观点句**，不在例子本身。
+
+深度参考 `references/exam-format.md`（含考研大纲、来源刊物、英一/英二差异、自检清单）。
+
+---
+
+## 反例清单（生成时避开）
+
+- ❌ 释义只写"n. 苹果"（无词性或只有单词释义）→ ✅ `n. 苹果；果树`
+- ❌ 段落翻译逐词死译（"the cat sat on the mat" → "那 猫 坐 在 那 垫子"）→ ✅ 地道中文，必要时调整语序
+- ❌ `word_translations` 漏词（缺某个入选词）→ ✅ 必须覆盖所有 main_words + supporting_words
+- ❌ 段落数与 `## Translation` 段数不一致 → ✅ 严格 1:1
+- ❌ 把"荧光笔"和"下划虚线"混在一起（入选词标熟练度时改成荧光色）→ ✅ 两者正交，下划虚线保持砖红不动

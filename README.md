@@ -16,9 +16,7 @@
 
 | Skill | 说明 |
 |---|---|
-| [memo-weakness-card](./memo-weakness-card/) | Use when the user wants to automatically generate "today's w… |
-| [theme-factory](./theme-factory/) | Toolkit for styling artifacts with a theme. These artifacts … |
-| [web-artifacts-builder](./web-artifacts-builder/) | Suite of tools for creating elaborate, multi-component claud… |
+| [memo-daily-card](./memo-daily-card/) | Use when the user wants to automatically generate "today's a… |
 | [canvas-design](./canvas-design/) | Create beautiful visual art in .png and .pdf documents using… |
 | [claude-skill-find-skill](./claude-skill-find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [find-skill](./find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
@@ -46,6 +44,8 @@
 | [skill-creator](./skill-creator/) | Create new skills, modify and improve existing skills, and m… |
 | [sunshine-spec](./sunshine-spec/) | "Spec 驱动开发：通过协作式需求澄清，依次生成 spec.md → plan.md，然后指导开发和验收。在开始任何功… |
 | [teach](./teach/) | Teach the user a new skill or concept, within this workspace… |
+| [theme-factory](./theme-factory/) | Toolkit for styling artifacts with a theme. These artifacts … |
+| [web-artifacts-builder](./web-artifacts-builder/) | Suite of tools for creating elaborate, multi-component claud… |
 | [web-design-guidelines](./web-design-guidelines/) | Review UI code for Web Interface Guidelines compliance. Use … |
 | [writing-great-skills](./writing-great-skills/) | Reference for writing and editing skills well — the vocabula… |
 | [xiaohongshu-cli](./xiaohongshu-cli/) | Use xiaohongshu-cli for ALL Xiaohongshu (Little Red Book, 小红… |
