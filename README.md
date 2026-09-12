@@ -16,6 +16,7 @@
 
 | Skill | 说明 |
 |---|---|
+| [domain-modeling](./domain-modeling/) | Build and sharpen a project's domain model. Use when discuss… |
 | [canvas-design](./canvas-design/) | Create beautiful visual art in .png and .pdf documents using… |
 | [claude-skill-find-skill](./claude-skill-find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [eli5](./eli5/) | Explain a topic like I'm a 5 year old. Use when the user typ… |
