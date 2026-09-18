@@ -16,9 +16,15 @@
 
 | Skill | 说明 |
 |---|---|
-| [domain-modeling](./domain-modeling/) | Build and sharpen a project's domain model. Use when discuss… |
+| [code-review](./code-review/) | "Review the changes since a fixed point (commit, branch, tag… |
+| [implement](./implement/) | "Implement a piece of work based on a spec or set of tickets… |
+| [improve-codebase-architecture](./improve-codebase-architecture/) | Scan a codebase for deepening opportunities, present them as… |
+| [mmx-cli](./mmx-cli/) | Use mmx to generate text, images, video, speech, and music v… |
+| [oil-icon](./oil-icon/) | Generate a cohesive set of transparent-background icons in a… |
+| [tdd](./tdd/) | Test-driven development. Use when the user wants to build fe… |
 | [canvas-design](./canvas-design/) | Create beautiful visual art in .png and .pdf documents using… |
 | [claude-skill-find-skill](./claude-skill-find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
+| [domain-modeling](./domain-modeling/) | Build and sharpen a project's domain model. Use when discuss… |
 | [eli5](./eli5/) | Explain a topic like I'm a 5 year old. Use when the user typ… |
 | [find-skill](./find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
 | [frontend-design](./frontend-design/) | Guidance for distinctive, intentional visual design when bui… |

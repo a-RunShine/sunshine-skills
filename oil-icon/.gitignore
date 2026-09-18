@@ -1,0 +1,13 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+raw/
+out/
+*.png
+*.jpg
+*.jpeg
+*.webp
+!assets/readme/*.png
+!assets/readme/showcase-soft3d/*.png
+!assets/readme/showcase-isometric/*.png
