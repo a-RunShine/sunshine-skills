@@ -16,45 +16,38 @@
 
 | Skill | 说明 |
 |---|---|
-| [code-review](./code-review/) | "Review the changes since a fixed point (commit, branch, tag… |
-| [implement](./implement/) | "Implement a piece of work based on a spec or set of tickets… |
-| [improve-codebase-architecture](./improve-codebase-architecture/) | Scan a codebase for deepening opportunities, present them as… |
-| [mmx-cli](./mmx-cli/) | Use mmx to generate text, images, video, speech, and music v… |
-| [oil-icon](./oil-icon/) | Generate a cohesive set of transparent-background icons in a… |
-| [tdd](./tdd/) | Test-driven development. Use when the user wants to build fe… |
-| [canvas-design](./canvas-design/) | Create beautiful visual art in .png and .pdf documents using… |
-| [claude-skill-find-skill](./claude-skill-find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
-| [domain-modeling](./domain-modeling/) | Build and sharpen a project's domain model. Use when discuss… |
-| [eli5](./eli5/) | Explain a topic like I'm a 5 year old. Use when the user typ… |
-| [find-skill](./find-skill/) | Finds and installs Claude Code Skills for your project. 14 s… |
-| [frontend-design](./frontend-design/) | Guidance for distinctive, intentional visual design when bui… |
-| [gc-minimal-zine-poster-v0-1](./gc-minimal-zine-poster-v0-1/) | Generate Minimal Zine Poster v0.1 poetic paper-poster prompt… |
-| [green-screen-keyer](./green-screen-keyer/) | 抠"绿幕底 + 白描边贴纸"风格的 PNG，输出干净透明底。Make sure to use this skill wh… |
-| [grill-me](./grill-me/) | A relentless interview to sharpen a plan or design. |
-| [grill-with-docs](./grill-with-docs/) | A relentless interview to sharpen a plan or design, which al… |
-| [grilling](./grilling/) | Grill the user relentlessly about a plan, decision, or idea.… |
-| [handoff](./handoff/) | Compact the current conversation into a handoff document for… |
-| [humanizer-zh](./humanizer-zh/) | \| |
-| [lark-suite](./lark-suite/) | "通过 lark-cli 操作飞书（消息、文档、云空间、多维表格、电子表格、幻灯片、日历、邮箱、任务、会议、Markdo… |
-| [manga-stories](./manga-stories/) | \| |
-| [markdown-converter](./markdown-converter/) | "Markitdown to Markdown: PDF, Office, HTML, data, OCR, audio… |
-| [md-pdf](./md-pdf/) | Use when the user wants to convert Markdown content into a p… |
-| [memo-context](./memo-context/) | Use when the user wants to turn today's Maimemo vocabulary i… |
-| [memo-daily-card](./memo-daily-card/) | Use when the user wants to automatically generate "today's a… |
-| [officecli](./officecli/) | Create, analyze, proofread, and modify Office documents (.do… |
-| [pdf](./pdf/) | Use this skill whenever the user wants to do anything with P… |
-| [research](./research/) | Investigate a question against high-trust primary sources an… |
-| [scenes-gathered-zine-v1-3](./scenes-gathered-zine-v1-3/) | "Transform a user-supplied photo into a vertical 3:5 Gathere… |
-| [skill-creator](./skill-creator/) | Create new skills, modify and improve existing skills, and m… |
-| [sunshine-spec](./sunshine-spec/) | "Spec 驱动开发：通过协作式需求澄清，依次生成 spec.md → plan.md，然后指导开发和验收。在开始任何功… |
-| [teach](./teach/) | Teach the user a new skill or concept, within this workspace… |
-| [theme-factory](./theme-factory/) | Toolkit for styling artifacts with a theme. These artifacts … |
-| [understand-codebase](./understand-codebase/) | Blueprint an unfamiliar codebase. Triggers: "分析这个项目" / "revi… |
-| [web-artifacts-builder](./web-artifacts-builder/) | Suite of tools for creating elaborate, multi-component claud… |
-| [web-design-guidelines](./web-design-guidelines/) | Review UI code for Web Interface Guidelines compliance. Use … |
-| [writing-great-skills](./writing-great-skills/) | Reference for writing and editing skills well — the vocabula… |
-| [xiaohongshu-cli](./xiaohongshu-cli/) | Use xiaohongshu-cli for ALL Xiaohongshu (Little Red Book, 小红… |
-| [xiaohongshu-image-batch](./xiaohongshu-image-batch/) | 从原始素材或主题，批量制作小红书图文内容（3:4 竖版，6-8 张为一组）。内置 /grilling 对齐（一次一问 +… |
+| [code-review](./practical/code-review/) | "Review the changes since a fixed point (commit, branch, tag… |
+| [domain-modeling](./practical/domain-modeling/) | Build and sharpen a project's domain model. Use when discuss… |
+| [eli5](./practical/eli5/) | "Explain a topic like I'm 5 year old. Use when the user typ… |
+| [find-skill](./practical/find-skill/) | "Finds and installs agent skills when they ask questions li… |
+| [frontend-design](./practical/frontend-design/) | "Guidance for distinctive, intentional visual design when bu… |
+| [gc-minimal-zine-poster-v0-1](./for-fun/gc-minimal-zine-poster-v0-1/) | "Generate Minimal Zine Poster v0.1 poetic paper-poster prompt… |
+| [grill-me](./practical/grill-me/) | "A relentless interview to sharpen a plan or design." |
+| [grill-with-docs](./practical/grill-with-docs/) | "A relentless interview to sharpen a plan or design, which al… |
+| [grilling](./practical/grilling/) | "Grill the user relentlessly about a plan, decision, or idea.… |
+| [handoff](./practical/handoff/) | "Compact the current conversation into a handoff document for… |
+| [humanizer-zh](./practical/humanizer-zh/) | 去除文本中的 AI 生成痕迹。适用于编辑或审阅文本，使其听起来更自然、更像人类书写。 |
+| [implement](./practical/implement/) | "Implement a piece of work based on a spec or set of tickets… |
+| [improve-codebase-architecture](./practical/improve-codebase-architecture/) | "Scan a codebase for deepening opportunities, present them as… |
+| [lark-suite](./lark-suite/) | "通过 lark-cli 操作飞书（消息、文档、云空间、多维表格… |
+| [manga-stories](./for-fun/manga-stories/) | Generate a vertical (3:4) Japanese-manga style image set… |
+| [officecli](./practical/officecli/) | "Create, analyze, proofread, and modify Office documents… |
+| [oil-icon](./practical/oil-icon/) | "Generate a cohesive set of transparent-background icons… |
+| [pdf](./practical/pdf/) | "Use this skill whenever the user wants to do anything with P… |
+| [research](./practical/research/) | "Investigate a question against high-trust primary sources an… |
+| [scenes-gathered-zine-v1-3](./for-fun/scenes-gathered-zine-v1-3/) | "Transform a user-supplied photo into a vertical 3:5 Gathere… |
+| [skill-creator](./practical/skill-creator/) | "Create new skills, modify and improve existing skills, and m… |
+| [sunshine-spec](./practical/sunshine-spec/) | "Spec 驱动开发：通过协作式需求澄清，依次生成 spec.md → plan.md… |
+| [tdd](./practical/tdd/) | "Test-driven development. Use when the user wants to build fe… |
+| [teach](./practical/teach/) | "Teach the user a new skill or concept, within this workspace… |
+| [theme-factory](./practical/theme-factory/) | "Toolkit for styling artifacts with a theme. These artifacts c… |
+| [understand-codebase](./practical/understand-codebase/) | "Blueprint an unfamiliar codebase. Triggers: "分析这个项目"… |
+| [web-artifacts-builder](./practical/web-artifacts-builder/) | "Suite of tools for creating elaborate, multi-component claud… |
+| [web-design-guidelines](./practical/web-design-guidelines/) | "Review UI code for Web Interface Guidelines compliance. Use w… |
+| [writing-great-skills](./practical/writing-great-skills/) | "Reference for writing and editing skills well — the vocabula… |
+| [xiaohongshu-cli](./for-fun/xiaohongshu-cli/) | "Use xiaohongshu-cli for ALL Xiaohongshu (Little Red Book, 小红… |
+| [xiaohongshu-image-batch](./for-fun/xiaohongshu-image-batch/) | 从原始素材或主题，批量制作小红书图文内容（3:4 竖版，6-8 张为一组）… |
+
 
 
 ## 添加方式
@@ -72,4 +65,4 @@ cp -r <skill-name> ~/.claude/skills/
 
 ---
 
-> ⚠️ 注意：`claude-skill-find-skill/` 与 `find-skill/` 是历史原因留下的同名重复副本，尚未合并。
+> ⚠️ 注意：`find-skill/` 内的 `agents/openai.yaml` 来自原 `claude-skill-find-skill/`，合并前先保留以备回退。
