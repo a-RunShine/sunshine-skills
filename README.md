@@ -12,43 +12,109 @@
 
 个人收集的 Claude Code Skills 集合，覆盖文档处理、设计、办公、网页抓取等常见场景。
 
-## 包含的 Skills
+## Skills 总览
 
-| Skill | 说明 |
-|---|---|
-| [code-review](./practical/code-review/) | "Review the changes since a fixed point (commit, branch, tag… |
-| [domain-modeling](./practical/domain-modeling/) | Build and sharpen a project's domain model. Use when discuss… |
-| [eli5](./practical/eli5/) | "Explain a topic like I'm 5 year old. Use when the user typ… |
-| [find-skill](./practical/find-skill/) | "Finds and installs agent skills when they ask questions li… |
-| [frontend-design](./practical/frontend-design/) | "Guidance for distinctive, intentional visual design when bu… |
-| [gc-minimal-zine-poster-v0-1](./for-fun/gc-minimal-zine-poster-v0-1/) | "Generate Minimal Zine Poster v0.1 poetic paper-poster prompt… |
-| [grill-me](./practical/grill-me/) | "A relentless interview to sharpen a plan or design." |
-| [grill-with-docs](./practical/grill-with-docs/) | "A relentless interview to sharpen a plan or design, which al… |
-| [grilling](./practical/grilling/) | "Grill the user relentlessly about a plan, decision, or idea.… |
-| [handoff](./practical/handoff/) | "Compact the current conversation into a handoff document for… |
-| [humanizer-zh](./practical/humanizer-zh/) | 去除文本中的 AI 生成痕迹。适用于编辑或审阅文本，使其听起来更自然、更像人类书写。 |
-| [implement](./practical/implement/) | "Implement a piece of work based on a spec or set of tickets… |
-| [improve-codebase-architecture](./practical/improve-codebase-architecture/) | "Scan a codebase for deepening opportunities, present them as… |
-| [lark-suite](./lark-suite/) | "通过 lark-cli 操作飞书（消息、文档、云空间、多维表格… |
-| [manga-stories](./for-fun/manga-stories/) | Generate a vertical (3:4) Japanese-manga style image set… |
-| [officecli](./practical/officecli/) | "Create, analyze, proofread, and modify Office documents… |
-| [oil-icon](./practical/oil-icon/) | "Generate a cohesive set of transparent-background icons… |
-| [pdf](./practical/pdf/) | "Use this skill whenever the user wants to do anything with P… |
-| [research](./practical/research/) | "Investigate a question against high-trust primary sources an… |
-| [scenes-gathered-zine-v1-3](./for-fun/scenes-gathered-zine-v1-3/) | "Transform a user-supplied photo into a vertical 3:5 Gathere… |
-| [skill-creator](./practical/skill-creator/) | "Create new skills, modify and improve existing skills, and m… |
-| [sunshine-spec](./practical/sunshine-spec/) | "Spec 驱动开发：通过协作式需求澄清，依次生成 spec.md → plan.md… |
-| [tdd](./practical/tdd/) | "Test-driven development. Use when the user wants to build fe… |
-| [teach](./practical/teach/) | "Teach the user a new skill or concept, within this workspace… |
-| [theme-factory](./practical/theme-factory/) | "Toolkit for styling artifacts with a theme. These artifacts c… |
-| [understand-codebase](./practical/understand-codebase/) | "Blueprint an unfamiliar codebase. Triggers: "分析这个项目"… |
-| [web-artifacts-builder](./practical/web-artifacts-builder/) | "Suite of tools for creating elaborate, multi-component claud… |
-| [web-design-guidelines](./practical/web-design-guidelines/) | "Review UI code for Web Interface Guidelines compliance. Use w… |
-| [writing-great-skills](./practical/writing-great-skills/) | "Reference for writing and editing skills well — the vocabula… |
-| [xiaohongshu-cli](./for-fun/xiaohongshu-cli/) | "Use xiaohongshu-cli for ALL Xiaohongshu (Little Red Book, 小红… |
-| [xiaohongshu-image-batch](./for-fun/xiaohongshu-image-batch/) | 从原始素材或主题，批量制作小红书图文内容（3:4 竖版，6-8 张为一组）… |
-
-
+```text
+sunshine-skills/
+├── for-fun/                                # 玩法 / 创意类
+│   ├── gc-minimal-zine-poster-v0-1/        # Minimal Zine Poster v0.1 海报提示生成
+│   ├── manga-stories/                      # 竖版 3:4 日式漫画风格图像集
+│   ├── scenes-gathered-zine-v1-3/          # 照片转竖版 3:5 Gathereel 风海报
+│   ├── xiaohongshu-cli/                    # 通过 xiaohongshu-cli 操作小红书
+│   └── xiaohongshu-image-batch/            # 批量制作小红书图文（3:4 竖版，6–8 张一组）
+│
+├── lark-suite/                             # 飞书全场景 CLI（lark-cli，26 业务域，200+ 命令）
+│   ├── SKILL.md                            # 入口
+│   └── skills/
+│       ├── lark-approval/                  # 审批
+│       ├── lark-apps/                      # 应用管理
+│       ├── lark-attendance/                # 考勤
+│       ├── lark-base/                      # 多维表格
+│       ├── lark-calendar/                  # 日历
+│       ├── lark-contact/                   # 通讯录
+│       ├── lark-doc/                       # 文档
+│       ├── lark-drive/                     # 云空间
+│       ├── lark-event/                     # 日程事件
+│       ├── lark-im/                        # 即时消息
+│       ├── lark-mail/                      # 邮箱
+│       ├── lark-markdown/                  # Markdown 渲染
+│       ├── lark-minutes/                   # 妙记
+│       ├── lark-note/                      # 笔记
+│       ├── lark-okr/                       # OKR
+│       ├── lark-openapi-explorer/          # OpenAPI 调试
+│       ├── lark-shared/                    # 公共工具
+│       ├── lark-sheets/                    # 电子表格
+│       ├── lark-skill-maker/               # 技能制作器
+│       ├── lark-slides/                    # 幻灯片
+│       ├── lark-task/                      # 任务
+│       ├── lark-vc/                        # 视频会议
+│       ├── lark-vc-agent/                  # 视频会议智能体
+│       ├── lark-whiteboard/                # 白板
+│       ├── lark-wiki/                      # 知识库
+│       ├── lark-workflow-meeting-summary/  # 工作流：会议纪要
+│       └── lark-workflow-standup-report/   # 工作流：站会报告
+│
+└── practical/                              # 实用工具与开发流程
+    │
+    │  # ── 独立 skills（17）──
+    ├── apple-design/                       # Apple 风格的交互动效与排版设计
+    ├── eli5/                               # 像给 5 岁孩子那样解释概念
+    ├── find-skill/                         # 查找并安装 agent skills（本地缓存）
+    ├── find-skills/                        # 同上（skill-creator 体系）
+    ├── frontend-design/                    # 有设计感的 UI 视觉指导
+    ├── humanizer-zh/                       # 去除中文文本的 AI 生成痕迹
+    ├── motion-web/                         # 动效优先的创意网站（Framer Motion / GSAP / R3F）  [submodule]
+    ├── officecli/                          # 创建 / 分析 / 修改 Office 文档（.docx/.xlsx/.pptx）
+    ├── oil-icon/                           # 一套透明背景的图标集（按品牌风格）
+    ├── pdf/                                # PDF 读取、合并、拆分、OCR、加密等
+    ├── skill-creator/                      # 创建 / 改进 / 评测 skill 的元技能
+    ├── sunshine-spec/                      # Spec 驱动开发（spec.md → plan.md → 验收）
+    ├── theme-factory/                      # 为产物套用主题（10 套预设 + 自定义）
+    ├── understand-codebase/                # 为陌生代码库生成蓝图
+    ├── web-artifacts-builder/              # 多组件 HTML artifact（React + Tailwind + shadcn/ui）
+    ├── web-design-guidelines/              # 按 Web Interface Guidelines 审查 UI
+    └── writing-great-skills/               # 编写 / 编辑 skill 的词汇与方法
+    │
+    └── matt-pocock/                        # Matt Pocock 风格的工程 skill 集（37）
+        ├── ask-matt/                       # 面向 Matt 风格的提问 / 咨询
+        ├── claude-handoff/                 # 将当前会话压缩为交接文档
+        ├── code-review/                    # 双轴审查（Standards + Spec，并行子代理）
+        ├── codebase-design/                # 深度模块的共享词汇
+        ├── diagnosing-bugs/                # 难 bug 与性能回归诊断循环
+        ├── domain-modeling/                # 构建 / 打磨项目领域模型
+        ├── git-guardrails-claude-code/     # Claude Code 的 Git 安全护栏
+        ├── grill-me/                       # 不留情面的访谈来打磨方案
+        ├── grill-with-docs/                # 带文档依据的访谈式打磨
+        ├── grilling/                       # 对方案 / 决策 / 想法连环追问
+        ├── handoff/                        # 将会话压成交接文档（同 claude-handoff）
+        ├── implement/                      # 基于 spec / tickets 实现工作
+        ├── implement-spec/                 # 从 spec 直接进入实现
+        ├── improve-codebase-architecture/  # 扫描代码库深度化机会并出具 HTML 报告
+        ├── loop-me/                        # 进入循环 / 反馈迭代
+        ├── migrate-to-shoehorn/            # 迁移到 shoehorn 模式
+        ├── pr/                             # PR 描述 / 评审辅助
+        ├── prototype/                      # 一次性原型，验证状态模型或 UI
+        ├── research/                       # 按一手资料调研并沉淀为 Markdown
+        ├── resolving-merge-conflicts/      # 解决进行中的 merge / rebase 冲突
+        ├── retro/                          # 复盘
+        ├── scaffold-exercises/             # 脚手架式练习题
+        ├── setup-matt-pocock-skills/       # 安装 Matt Pocock 全套 skill 的引导
+        ├── setup-pre-commit/               # 配置 pre-commit
+        ├── setup-ts-deep-modules/          # 配置 TS 深度模块工程
+        ├── tdd/                            # 测试驱动开发（red-green-refactor）
+        ├── teach/                          # 在工作区中教用户新概念
+        ├── to-questionnaire/               # 内容 → 问卷
+        ├── to-spec/                        # 内容 → spec.md
+        ├── to-tickets/                     # 内容 → 工单
+        ├── triage/                         # 工单 / 议题分诊
+        ├── wait-what/                      # 暂停并梳理"等等，这是什么"
+        ├── wayfinder/                      # 在大型代码库中定位方向
+        ├── wizard/                         # 生成交互式 bash 引导脚本
+        ├── writing-beats/                  # 按节拍写作
+        ├── writing-for-agents/             # 为 agent 撰写文档（skill / AGENTS.md）
+        ├── writing-fragments/              # 片段式写作
+        └── writing-shape/                  # 形态导向的写作
+```
 
 ## 添加方式
 
@@ -56,7 +122,7 @@
 # 把整个目录复制到 Claude Code 的 skills 路径下
 cp -r <skill-name> ~/.claude/skills/
 
-# 或在 Claude Code 中通过 find-skill 直接搜索安装
+# 或在 Claude Code 中通过 find-skill / find-skills 直接搜索安装
 ```
 
 ## License
