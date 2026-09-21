@@ -1,12 +1,12 @@
 ---
 name: research
-description: Investigate a question against high-trust primary sources and return the findings to the main agent with per-claim primary-source citations. No file is written.
+description: Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent.
 ---
 
 Spin up a **background agent** to do the research, so you keep working while it reads.
 
-Investigate the question against **primary sources** — official docs, source code, specs, first-party APIs — not secondary write-ups of them.
+Its job:
 
-Return the findings as your **final message**, not as a file.
-
-Cite every claim back to its primary source (URL or path + section/version), and prefer verbatim quotes or concrete data points over paraphrase. The main agent receives your final text verbatim — keep the granularity of the sources.
+1. Investigate the question against **primary sources** (official docs, source code, specs, first-party APIs), not a secondary write-up of them. Follow every claim back to the source that owns it.
+2. Write the findings to a single Markdown file, citing each claim's source.
+3. Save it where the repo already keeps such notes; match the existing convention, and if there is none, put it somewhere sensible and say where.

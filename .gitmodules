@@ -1,0 +1,3 @@
+[submodule "practical/motion-web"]
+	path = practical/motion-web
+	url = https://github.com/feitangyuan/motion-web.git
