@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="420" viewBox="0 0 1200 420"
+     role="img" aria-labelledby="tree-title tree-desc">
+  <title id="tree-title">Skill organization — three top-level categories</title>
+  <desc id="tree-desc">Diagram showing how the 87 skills in sunshine-skills are organized into three top-level directories: for-fun with 5 creative skills, lark-suite with 28 lark-cli sub-skills, and practical with 17 standalone skills plus a matt-pocock subfolder containing 37 engineering skills.</desc>
+
+  <defs>
+    <linearGradient id="vline" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3fb950" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#3fb950" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="420" rx="20" fill="#0b0d10"/>
+
+  <!-- header -->
+  <g transform="translate(56 36)" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <text x="0" y="0" font-size="14" fill="#7d8590" letter-spacing="1.5">SKILL  TAXONOMY  ·  87 SKILLS · 3 CATEGORIES</text>
+  </g>
+  <line x1="56" y1="56" x2="1144" y2="56" stroke="#1a1d22" stroke-width="1"/>
+
+  <!-- root node -->
+  <g transform="translate(560 84)">
+    <rect x="-80" y="0" width="160" height="40" rx="8" fill="#0b0d10" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="0" y="25" text-anchor="middle" font-family="ui-monospace, monospace" font-size="16" fill="#f7f5ef" font-weight="700">sunshine-skills</text>
+  </g>
+
+  <!-- vertical trunk -->
+  <rect x="558" y="124" width="4" height="48" fill="url(#vline)"/>
+
+  <!-- horizontal bus -->
+  <line x1="200" y1="172" x2="1000" y2="172" stroke="#3fb950" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- three branches down -->
+  <line x1="200" y1="172" x2="200" y2="196" stroke="#3fb950" stroke-width="1.5" opacity="0.4"/>
+  <line x1="600" y1="172" x2="600" y2="196" stroke="#3fb950" stroke-width="1.5" opacity="0.4"/>
+  <line x1="1000" y1="172" x2="1000" y2="196" stroke="#3fb950" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- branch 1: for-fun -->
+  <g transform="translate(80 196)">
+    <rect x="0" y="0" width="240" height="200" rx="12" fill="#11151a" stroke="#1f242c" stroke-width="1"/>
+    <text x="20" y="32" font-family="ui-monospace, monospace" font-size="18" font-weight="700" fill="#3fb950">for-fun/</text>
+    <text x="220" y="32" font-family="ui-monospace, monospace" font-size="13" fill="#7d8590" text-anchor="end">5</text>
+    <line x1="20" y1="48" x2="220" y2="48" stroke="#1f242c" stroke-width="1"/>
+
+    <g font-family="ui-monospace, monospace" font-size="13" fill="#c9d1d9">
+      <text x="20" y="72">▸ gc-minimal-zine</text>
+      <text x="20" y="94">▸ manga-stories</text>
+      <text x="20" y="116">▸ scenes-gathered-zine</text>
+      <text x="20" y="138">▸ xiaohongshu-cli</text>
+      <text x="20" y="160">▸ xiaohongshu-image-batch</text>
+    </g>
+
+    <text x="20" y="186" font-family="ui-monospace, monospace" font-size="11" fill="#7d8590" letter-spacing="1">CREATIVE  ·  IMAGE</text>
+  </g>
+
+  <!-- branch 2: lark-suite -->
+  <g transform="translate(480 196)">
+    <rect x="0" y="0" width="240" height="200" rx="12" fill="#11151a" stroke="#1f242c" stroke-width="1"/>
+    <text x="20" y="32" font-family="ui-monospace, monospace" font-size="18" font-weight="700" fill="#3fb950">lark-suite/</text>
+    <text x="220" y="32" font-family="ui-monospace, monospace" font-size="13" fill="#7d8590" text-anchor="end">28</text>
+    <line x1="20" y1="48" x2="220" y2="48" stroke="#1f242c" stroke-width="1"/>
+
+    <g font-family="ui-monospace, monospace" font-size="13" fill="#c9d1d9">
+      <text x="20" y="72">▸ lark-doc, -sheets, -slides</text>
+      <text x="20" y="94">▸ lark-im, -mail, -calendar</text>
+      <text x="20" y="116">▸ lark-base, -drive, -wiki</text>
+      <text x="20" y="138">▸ lark-vc, -minutes, -okr</text>
+      <text x="20" y="160">▸ … 22 more</text>
+    </g>
+
+    <text x="20" y="186" font-family="ui-monospace, monospace" font-size="11" fill="#7d8590" letter-spacing="1">PRODUCTIVITY  ·  LARK-CLI</text>
+  </g>
+
+  <!-- branch 3: practical -->
+  <g transform="translate(880 196)">
+    <rect x="0" y="0" width="240" height="200" rx="12" fill="#11151a" stroke="#1f242c" stroke-width="1"/>
+    <text x="20" y="32" font-family="ui-monospace, monospace" font-size="18" font-weight="700" fill="#3fb950">practical/</text>
+    <text x="220" y="32" font-family="ui-monospace, monospace" font-size="13" fill="#7d8590" text-anchor="end">54</text>
+    <line x1="20" y1="48" x2="220" y2="48" stroke="#1f242c" stroke-width="1"/>
+
+    <g font-family="ui-monospace, monospace" font-size="13" fill="#c9d1d9">
+      <text x="20" y="72">▸ apple-design · motion-web</text>
+      <text x="20" y="94">▸ officecli · pdf · theme-factory</text>
+      <text x="20" y="116">▸ eli5 · skill-creator · tdd</text>
+      <text x="20" y="138">▸ matt-pocock/ (37 skills)</text>
+      <text x="20" y="160">▸ code-review · grilling · …</text>
+    </g>
+
+    <text x="20" y="186" font-family="ui-monospace, monospace" font-size="11" fill="#7d8590" letter-spacing="1">ENGINEERING  ·  DESIGN  ·  DOCS</text>
+  </g>
+</svg>

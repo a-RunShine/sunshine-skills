@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="360" viewBox="0 0 1200 360"
+     role="img" aria-labelledby="hero-title hero-desc">
+  <title id="hero-title">sunshine-skills — a curated Claude Code skills collection</title>
+  <desc id="hero-desc">Hero: title block on the left describing the collection as 87 installable Claude Code skills grouped into for-fun, lark-suite, and practical; on the right a stylized tree showing the three categories with their skill counts and a terminal-prompt motif.</desc>
+
+  <defs>
+    <pattern id="grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#1a1d22" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="accentLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3fb950"/>
+      <stop offset="100%" stop-color="#3fb950" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="360" rx="20" fill="#0b0d10"/>
+  <rect width="1200" height="360" rx="20" fill="url(#grid)" opacity="0.6"/>
+
+  <!-- top metadata bar -->
+  <g transform="translate(56 36)" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <rect x="0" y="-4" width="10" height="10" rx="2" fill="#3fb950"/>
+    <text x="20" y="6" font-size="16" fill="#7d8590" letter-spacing="1.5">CLAUDE  CODE  ·  SKILLS  COLLECTION</text>
+  </g>
+
+  <!-- divider -->
+  <line x1="56" y1="68" x2="1144" y2="68" stroke="#1a1d22" stroke-width="1"/>
+
+  <!-- left title block -->
+  <g transform="translate(56 96)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif">
+    <!-- prompt chevron + category -->
+    <text x="0" y="20" font-family="ui-monospace, monospace" font-size="20" font-weight="700" fill="#3fb950">></text>
+    <text x="28" y="20" font-size="18" font-weight="500" fill="#7d8590" letter-spacing="2">A CURATION OF</text>
+
+    <!-- repo name -->
+    <text x="0" y="92" font-size="84" font-weight="800" fill="#f7f5ef" letter-spacing="-2">sunshine-skills</text>
+
+    <!-- tagline -->
+    <text x="0" y="148" font-size="22" font-weight="500" fill="#c9d1d9">87 installable skills for docs, design,</text>
+    <text x="0" y="178" font-size="22" font-weight="500" fill="#c9d1d9">office, web, and lark workflows.</text>
+
+    <!-- accent line -->
+    <rect x="0" y="200" width="120" height="3" rx="1.5" fill="#3fb950"/>
+
+    <!-- stats row -->
+    <g transform="translate(0 226)" font-family="ui-monospace, monospace" font-size="16">
+      <text x="0" y="0" fill="#7d8590">$ ls skills/</text>
+      <text x="0" y="28" fill="#f7f5ef">3 categories · 87 skills · MIT-style permissive</text>
+    </g>
+  </g>
+
+  <!-- right proof: stylized mini tree -->
+  <g transform="translate(720 96)" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <!-- tree card -->
+    <rect x="0" y="0" width="424" height="232" rx="14" fill="#11151a" stroke="#1f242c" stroke-width="1"/>
+
+    <!-- header -->
+    <text x="20" y="30" font-size="14" fill="#7d8590" letter-spacing="1.5">TREE  ·  ./sunshine-skills</text>
+    <circle cx="404" cy="26" r="3" fill="#3fb950"/>
+
+    <!-- for-fun branch -->
+    <g transform="translate(20 60)">
+      <text x="0" y="0" font-size="16" fill="#3fb950" font-weight="700">▸ for-fun/</text>
+      <text x="160" y="0" font-size="13" fill="#7d8590">5 skills</text>
+      <text x="20" y="22" font-size="13" fill="#7d8590">zine · manga · xiaohongshu</text>
+    </g>
+
+    <!-- lark-suite branch -->
+    <g transform="translate(20 118)">
+      <text x="0" y="0" font-size="16" fill="#3fb950" font-weight="700">▸ lark-suite/</text>
+      <text x="170" y="0" font-size="13" fill="#7d8590">28 skills</text>
+      <text x="20" y="22" font-size="13" fill="#7d8590">lark-cli · 26 product domains</text>
+    </g>
+
+    <!-- practical branch -->
+    <g transform="translate(20 176)">
+      <text x="0" y="0" font-size="16" fill="#3fb950" font-weight="700">▸ practical/</text>
+      <text x="170" y="0" font-size="13" fill="#7d8590">54 skills</text>
+      <text x="20" y="22" font-size="13" fill="#7d8590">apple-design · matt-pocock · motion-web</text>
+    </g>
+
+    <!-- cursor -->
+    <rect x="0" y="216" width="8" height="14" fill="#3fb950"/>
+  </g>
+
+  <!-- corner motif -->
+  <g transform="translate(1144 36)" font-family="ui-monospace, monospace">
+    <text x="0" y="0" font-size="14" fill="#7d8590" text-anchor="end">v 2026-09</text>
+  </g>
+</svg>

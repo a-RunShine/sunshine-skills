@@ -1,22 +1,31 @@
 # sunshine-skills
 
-<p align="left">
-  <a href="https://github.com/a-RunShine/sunshine-skills/stargazers"><img src="https://img.shields.io/github/stars/a-RunShine/sunshine-skills?style=for-the-badge&logo=github&logoColor=white&color=4c1" alt="Stars"></a>
-  <a href="https://github.com/a-RunShine/sunshine-skills/network/members"><img src="https://img.shields.io/github/forks/a-RunShine/sunshine-skills?style=for-the-badge&logo=github&logoColor=white&color=4c1" alt="Forks"></a>
-  <a href="https://github.com/a-RunShine/sunshine-skills/issues"><img src="https://img.shields.io/github/issues/a-RunShine/sunshine-skills?style=for-the-badge&logo=github&logoColor=white&color=4c1" alt="Issues"></a>
-  <a href="https://github.com/a-RunShine/sunshine-skills/commits/master"><img src="https://img.shields.io/github/last-commit/a-RunShine/sunshine-skills?style=for-the-badge&logo=git&logoColor=white&color=4c1" alt="Last Commit"></a>
-  <a href="https://github.com/a-RunShine/sunshine-skills"><img src="https://img.shields.io/github/repo-size/a-RunShine/sunshine-skills?style=for-the-badge&logo=github&logoColor=white&color=4c1" alt="Repo Size"></a>
-  <a href="https://github.com/a-RunShine/sunshine-skills"><img src="https://img.shields.io/github/languages/top/a-RunShine/sunshine-skills?style=for-the-badge&logo=python&logoColor=white&color=3776AB" alt="Top Language"></a>
-  <a href="https://github.com/a-RunShine/sunshine-skills"><img src="https://img.shields.io/github/languages/count/a-RunShine/sunshine-skills?style=for-the-badge&logo=github&logoColor=white&color=4c1" alt="Languages"></a>
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="sunshine-skills — 87 installable Claude Code skills for docs, design, office, web, and lark workflows">
 </p>
 
-个人收集的 Claude Code Skills 集合，覆盖文档处理、设计、办公、网页抓取等常见场景。
+<p align="left">
+  <a href="https://github.com/a-RunShine/sunshine-skills/stargazers"><img src="https://img.shields.io/github/stars/a-RunShine/sunshine-skills?style=flat-square&logo=github&logoColor=white&color=4c1" alt="Stars"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills/network/members"><img src="https://img.shields.io/github/forks/a-RunShine/sunshine-skills?style=flat-square&logo=github&logoColor=white&color=4c1" alt="Forks"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills/issues"><img src="https://img.shields.io/github/issues/a-RunShine/sunshine-skills?style=flat-square&logo=github&logoColor=white&color=4c1" alt="Issues"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills/commits/master"><img src="https://img.shields.io/github/last-commit/a-RunShine/sunshine-skills?style=flat-square&logo=git&logoColor=white&color=4c1" alt="Last Commit"></a>
+</p>
 
-## Skills 总览
+个人收集的 Claude Code Skills 集合。**87 个** skill，按用途分为三类：
+
+- **for-fun/** — 创意 / 玩法类（zine、海报、小红书）
+- **lark-suite/** — 飞书全场景 CLI（lark-cli，26 个业务域）
+- **practical/** — 实用工具与开发流程（含 matt-pocock 工程 skill 集）
+
+## 目录结构
+
+<p align="center">
+  <img src="./assets/readme/tree.svg" width="100%" alt="Skill taxonomy — three top-level categories with skill counts">
+</p>
 
 ```text
 sunshine-skills/
-├── for-fun/                                # 玩法 / 创意类
+├── for-fun/                                # 玩法 / 创意类（5）
 │   ├── gc-minimal-zine-poster-v0-1/        # Minimal Zine Poster v0.1 海报提示生成
 │   ├── manga-stories/                      # 竖版 3:4 日式漫画风格图像集
 │   ├── scenes-gathered-zine-v1-3/          # 照片转竖版 3:5 Gathereel 风海报
@@ -25,7 +34,7 @@ sunshine-skills/
 │
 ├── lark-suite/                             # 飞书全场景 CLI（lark-cli，26 业务域，200+ 命令）
 │   ├── SKILL.md                            # 入口
-│   └── skills/
+│   └── skills/                             # 28 个 lark-* 子 skill
 │       ├── lark-approval/                  # 审批
 │       ├── lark-apps/                      # 应用管理
 │       ├── lark-attendance/                # 考勤
@@ -54,7 +63,7 @@ sunshine-skills/
 │       ├── lark-workflow-meeting-summary/  # 工作流：会议纪要
 │       └── lark-workflow-standup-report/   # 工作流：站会报告
 │
-└── practical/                              # 实用工具与开发流程
+└── practical/                              # 实用工具与开发流程（54）
     │
     │  # ── 独立 skills（17）──
     ├── apple-design/                       # Apple 风格的交互动效与排版设计
