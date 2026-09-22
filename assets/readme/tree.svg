@@ -1,92 +1,244 @@
 <svg xmlns="http://www.w3.org/2000/svg"
-     width="1200" height="420" viewBox="0 0 1200 420"
+     width="1200" height="520" viewBox="0 0 1200 520"
      role="img" aria-labelledby="tree-title tree-desc">
-  <title id="tree-title">Skill organization — three top-level categories</title>
-  <desc id="tree-desc">Diagram showing how the 87 skills in sunshine-skills are organized into three top-level directories: for-fun with 5 creative skills, lark-suite with 28 lark-cli sub-skills, and practical with 17 standalone skills plus a matt-pocock subfolder containing 37 engineering skills.</desc>
+  <title id="tree-title">sunshine-skills — three cozy categories</title>
+  <desc id="tree-desc">A warm cream board. Top header reads "SKILL TAXONOMY · 88 个小可爱住 3 个窝". Three large rounded tiles below show the categories: for-fun with a coral palette and zine/icon motif, lark-suite with a mint palette and chat-bubble motif, practical with a yellow palette and gear motif. Each tile lists a few representative skills as rounded chips and a small matchstick character waving from a corner.</desc>
 
   <defs>
-    <linearGradient id="vline" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#3fb950" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#3fb950" stop-opacity="0.1"/>
-    </linearGradient>
+    <pattern id="dots2" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="14" cy="14" r="1.2" fill="#ead7b4"/>
+    </pattern>
   </defs>
 
-  <rect width="1200" height="420" rx="20" fill="#0b0d10"/>
+  <!-- background -->
+  <rect width="1200" height="520" rx="28" fill="#fff8ec"/>
+  <rect width="1200" height="520" rx="28" fill="url(#dots2)" opacity="0.45"/>
 
   <!-- header -->
-  <g transform="translate(56 36)" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
-    <text x="0" y="0" font-size="14" fill="#7d8590" letter-spacing="1.5">SKILL  TAXONOMY  ·  87 SKILLS · 3 CATEGORIES</text>
-  </g>
-  <line x1="56" y1="56" x2="1144" y2="56" stroke="#1a1d22" stroke-width="1"/>
-
-  <!-- root node -->
-  <g transform="translate(560 84)">
-    <rect x="-80" y="0" width="160" height="40" rx="8" fill="#0b0d10" stroke="#3fb950" stroke-width="1.5"/>
-    <text x="0" y="25" text-anchor="middle" font-family="ui-monospace, monospace" font-size="16" fill="#f7f5ef" font-weight="700">sunshine-skills</text>
+  <g transform="translate(56 60)" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif">
+    <text x="0" y="0" font-family="ui-monospace, monospace" font-size="13" font-weight="700" fill="#7a6a52" letter-spacing="3">SKILL TAXONOMY</text>
+    <text x="0" y="34" font-size="32" font-weight="900" fill="#2b2a28">88 个小可爱 · 住 3 个窝</text>
+    <text x="0" y="58" font-size="14" fill="#7a6a52">从好玩到能干活 · 任你领养</text>
   </g>
 
-  <!-- vertical trunk -->
-  <rect x="558" y="124" width="4" height="48" fill="url(#vline)"/>
+  <!-- tiny character top right (peeking at the header) -->
+  <g transform="translate(1100 70) scale(0.9)">
+    <circle cx="0" cy="0" r="20" fill="#ffd9c2" stroke="#2b2a28" stroke-width="2.5"/>
+    <path d="M -10 -20 Q -8 -28 0 -24 Q 8 -28 10 -20" fill="#2b2a28"/>
+    <circle cx="-6" cy="-1" r="2" fill="#2b2a28"/>
+    <circle cx="6" cy="-1" r="2" fill="#2b2a28"/>
+    <circle cx="-10" cy="6" r="2.5" fill="#ff6b6b" opacity="0.55"/>
+    <circle cx="10" cy="6" r="2.5" fill="#ff6b6b" opacity="0.55"/>
+    <path d="M -4 7 Q 0 11 4 7" stroke="#2b2a28" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- wave hand -->
+    <line x1="-12" y1="14" x2="-22" y2="2" stroke="#2b2a28" stroke-width="3" stroke-linecap="round"/>
+    <text x="-26" y="-4" font-size="14" fill="#ff6b6b">✦</text>
+  </g>
 
-  <!-- horizontal bus -->
-  <line x1="200" y1="172" x2="1000" y2="172" stroke="#3fb950" stroke-width="1.5" opacity="0.4"/>
+  <!-- ============ tile 1: for-fun ============ -->
+  <g transform="translate(56 168)">
+    <!-- shadow card -->
+    <rect x="6" y="8" width="346" height="304" rx="26" fill="#2b2a28" opacity="0.08"/>
+    <!-- main card -->
+    <rect x="0" y="0" width="346" height="304" rx="26" fill="#ffffff" stroke="#2b2a28" stroke-width="2.5"/>
 
-  <!-- three branches down -->
-  <line x1="200" y1="172" x2="200" y2="196" stroke="#3fb950" stroke-width="1.5" opacity="0.4"/>
-  <line x1="600" y1="172" x2="600" y2="196" stroke="#3fb950" stroke-width="1.5" opacity="0.4"/>
-  <line x1="1000" y1="172" x2="1000" y2="196" stroke="#3fb950" stroke-width="1.5" opacity="0.4"/>
+    <!-- header band -->
+    <path d="M 0 26 Q 0 0 26 0 L 320 0 Q 346 0 346 26 L 346 76 L 0 76 Z" fill="#ff6b6b"/>
 
-  <!-- branch 1: for-fun -->
-  <g transform="translate(80 196)">
-    <rect x="0" y="0" width="240" height="200" rx="12" fill="#11151a" stroke="#1f242c" stroke-width="1"/>
-    <text x="20" y="32" font-family="ui-monospace, monospace" font-size="18" font-weight="700" fill="#3fb950">for-fun/</text>
-    <text x="220" y="32" font-family="ui-monospace, monospace" font-size="13" fill="#7d8590" text-anchor="end">5</text>
-    <line x1="20" y1="48" x2="220" y2="48" stroke="#1f242c" stroke-width="1"/>
+    <text x="26" y="46" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="26" font-weight="900" fill="#fff8ec">for-fun/</text>
 
-    <g font-family="ui-monospace, monospace" font-size="13" fill="#c9d1d9">
-      <text x="20" y="72">▸ gc-minimal-zine</text>
-      <text x="20" y="94">▸ manga-stories</text>
-      <text x="20" y="116">▸ scenes-gathered-zine</text>
-      <text x="20" y="138">▸ xiaohongshu-cli</text>
-      <text x="20" y="160">▸ xiaohongshu-image-batch</text>
+    <!-- count chip -->
+    <g transform="translate(284 38)">
+      <rect x="-30" y="-16" width="60" height="32" rx="16" fill="#fff8ec" stroke="#2b2a28" stroke-width="2"/>
+      <text x="0" y="6" text-anchor="middle" font-family="ui-monospace, monospace" font-size="15" font-weight="900" fill="#ff6b6b">5 skills</text>
     </g>
 
-    <text x="20" y="186" font-family="ui-monospace, monospace" font-size="11" fill="#7d8590" letter-spacing="1">CREATIVE  ·  IMAGE</text>
-  </g>
+    <!-- tagline -->
+    <text x="26" y="106" font-size="14" font-weight="700" fill="#7a6a52" letter-spacing="1">CREATIVE  ·  IMAGE</text>
+    <text x="26" y="130" font-size="13" fill="#57606a">zine / 海报 / 漫画 / 小红书</text>
 
-  <!-- branch 2: lark-suite -->
-  <g transform="translate(480 196)">
-    <rect x="0" y="0" width="240" height="200" rx="12" fill="#11151a" stroke="#1f242c" stroke-width="1"/>
-    <text x="20" y="32" font-family="ui-monospace, monospace" font-size="18" font-weight="700" fill="#3fb950">lark-suite/</text>
-    <text x="220" y="32" font-family="ui-monospace, monospace" font-size="13" fill="#7d8590" text-anchor="end">28</text>
-    <line x1="20" y1="48" x2="220" y2="48" stroke="#1f242c" stroke-width="1"/>
+    <!-- divider -->
+    <line x1="26" y1="148" x2="320" y2="148" stroke="#ead7b4" stroke-width="1.5" stroke-dasharray="3 4"/>
 
-    <g font-family="ui-monospace, monospace" font-size="13" fill="#c9d1d9">
-      <text x="20" y="72">▸ lark-doc, -sheets, -slides</text>
-      <text x="20" y="94">▸ lark-im, -mail, -calendar</text>
-      <text x="20" y="116">▸ lark-base, -drive, -wiki</text>
-      <text x="20" y="138">▸ lark-vc, -minutes, -okr</text>
-      <text x="20" y="160">▸ … 22 more</text>
+    <!-- skill chips -->
+    <g transform="translate(26 162)" font-family="ui-monospace, monospace" font-size="12" font-weight="700">
+      <g>
+        <rect x="0" y="0" width="138" height="28" rx="14" fill="#fff5f5" stroke="#ff6b6b" stroke-width="1.5"/>
+        <text x="69" y="18" text-anchor="middle" fill="#2b2a28">gc-zine-poster</text>
+      </g>
+      <g transform="translate(0 36)">
+        <rect x="0" y="0" width="118" height="28" rx="14" fill="#fff5f5" stroke="#ff6b6b" stroke-width="1.5"/>
+        <text x="59" y="18" text-anchor="middle" fill="#2b2a28">manga-stories</text>
+      </g>
+      <g transform="translate(126 36)">
+        <rect x="0" y="0" width="148" height="28" rx="14" fill="#fff5f5" stroke="#ff6b6b" stroke-width="1.5"/>
+        <text x="74" y="18" text-anchor="middle" fill="#2b2a28">scenes-gathered</text>
+      </g>
+      <g transform="translate(0 72)">
+        <rect x="0" y="0" width="138" height="28" rx="14" fill="#fff5f5" stroke="#ff6b6b" stroke-width="1.5"/>
+        <text x="69" y="18" text-anchor="middle" fill="#2b2a28">xiaohongshu-cli</text>
+      </g>
+      <g transform="translate(146 72)">
+        <rect x="0" y="0" width="148" height="28" rx="14" fill="#fff5f5" stroke="#ff6b6b" stroke-width="1.5"/>
+        <text x="74" y="18" text-anchor="middle" fill="#2b2a28">xhs-image-batch</text>
+      </g>
     </g>
 
-    <text x="20" y="186" font-family="ui-monospace, monospace" font-size="11" fill="#7d8590" letter-spacing="1">PRODUCTIVITY  ·  LARK-CLI</text>
+    <!-- corner character bottom-right -->
+    <g transform="translate(296 268) scale(0.45)">
+      <circle cx="0" cy="0" r="22" fill="#ffd9c2" stroke="#2b2a28" stroke-width="3"/>
+      <path d="M -10 -22 Q -8 -32 0 -28 Q 8 -32 10 -22" fill="#2b2a28"/>
+      <circle cx="-7" cy="-2" r="3" fill="#2b2a28"/>
+      <circle cx="7" cy="-2" r="3" fill="#2b2a28"/>
+      <circle cx="-12" cy="6" r="3" fill="#ff6b6b" opacity="0.6"/>
+      <circle cx="12" cy="6" r="3" fill="#ff6b6b" opacity="0.6"/>
+      <path d="M -5 8 Q 0 13 5 8" stroke="#2b2a28" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <line x1="0" y1="22" x2="0" y2="64" stroke="#2b2a28" stroke-width="3" stroke-linecap="round"/>
+      <line x1="0" y1="34" x2="-22" y2="18" stroke="#2b2a28" stroke-width="3" stroke-linecap="round"/>
+      <line x1="0" y1="34" x2="20" y2="18" stroke="#2b2a28" stroke-width="3" stroke-linecap="round"/>
+      <!-- holding a mini zine -->
+      <rect x="14" y="6" width="14" height="20" rx="2" fill="#fff8ec" stroke="#2b2a28" stroke-width="2"/>
+      <line x1="17" y1="12" x2="25" y2="12" stroke="#ff6b6b" stroke-width="1.5"/>
+      <line x1="17" y1="17" x2="25" y2="17" stroke="#2b2a28" stroke-width="1"/>
+      <line x1="17" y1="22" x2="22" y2="22" stroke="#2b2a28" stroke-width="1"/>
+    </g>
   </g>
 
-  <!-- branch 3: practical -->
-  <g transform="translate(880 196)">
-    <rect x="0" y="0" width="240" height="200" rx="12" fill="#11151a" stroke="#1f242c" stroke-width="1"/>
-    <text x="20" y="32" font-family="ui-monospace, monospace" font-size="18" font-weight="700" fill="#3fb950">practical/</text>
-    <text x="220" y="32" font-family="ui-monospace, monospace" font-size="13" fill="#7d8590" text-anchor="end">54</text>
-    <line x1="20" y1="48" x2="220" y2="48" stroke="#1f242c" stroke-width="1"/>
+  <!-- ============ tile 2: lark-suite ============ -->
+  <g transform="translate(427 168)">
+    <rect x="6" y="8" width="346" height="304" rx="26" fill="#2b2a28" opacity="0.08"/>
+    <rect x="0" y="0" width="346" height="304" rx="26" fill="#ffffff" stroke="#2b2a28" stroke-width="2.5"/>
 
-    <g font-family="ui-monospace, monospace" font-size="13" fill="#c9d1d9">
-      <text x="20" y="72">▸ apple-design · motion-web</text>
-      <text x="20" y="94">▸ officecli · pdf · theme-factory</text>
-      <text x="20" y="116">▸ eli5 · skill-creator · tdd</text>
-      <text x="20" y="138">▸ matt-pocock/ (37 skills)</text>
-      <text x="20" y="160">▸ code-review · grilling · …</text>
+    <path d="M 0 26 Q 0 0 26 0 L 320 0 Q 346 0 346 26 L 346 76 L 0 76 Z" fill="#7edcb6"/>
+
+    <text x="26" y="46" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="26" font-weight="900" fill="#2b2a28">lark-suite/</text>
+
+    <g transform="translate(284 38)">
+      <rect x="-30" y="-16" width="60" height="32" rx="16" fill="#fff8ec" stroke="#2b2a28" stroke-width="2"/>
+      <text x="0" y="6" text-anchor="middle" font-family="ui-monospace, monospace" font-size="15" font-weight="900" fill="#2b2a28">27 skills</text>
     </g>
 
-    <text x="20" y="186" font-family="ui-monospace, monospace" font-size="11" fill="#7d8590" letter-spacing="1">ENGINEERING  ·  DESIGN  ·  DOCS</text>
+    <text x="26" y="106" font-size="14" font-weight="700" fill="#7a6a52" letter-spacing="1">PRODUCTIVITY  ·  LARK-CLI</text>
+    <text x="26" y="130" font-size="13" fill="#57606a">飞书 26 业务域 · 200+ 命令</text>
+
+    <line x1="26" y1="148" x2="320" y2="148" stroke="#ead7b4" stroke-width="1.5" stroke-dasharray="3 4"/>
+
+    <g transform="translate(26 162)" font-family="ui-monospace, monospace" font-size="12" font-weight="700">
+      <g>
+        <rect x="0" y="0" width="138" height="28" rx="14" fill="#effaf4" stroke="#3a9a72" stroke-width="1.5"/>
+        <text x="69" y="18" text-anchor="middle" fill="#2b2a28">lark-doc / -sheets</text>
+      </g>
+      <g transform="translate(146 0)">
+        <rect x="0" y="0" width="148" height="28" rx="14" fill="#effaf4" stroke="#3a9a72" stroke-width="1.5"/>
+        <text x="74" y="18" text-anchor="middle" fill="#2b2a28">lark-im / -mail</text>
+      </g>
+      <g transform="translate(0 36)">
+        <rect x="0" y="0" width="148" height="28" rx="14" fill="#effaf4" stroke="#3a9a72" stroke-width="1.5"/>
+        <text x="74" y="18" text-anchor="middle" fill="#2b2a28">lark-base / -drive</text>
+      </g>
+      <g transform="translate(156 36)">
+        <rect x="0" y="0" width="138" height="28" rx="14" fill="#effaf4" stroke="#3a9a72" stroke-width="1.5"/>
+        <text x="69" y="18" text-anchor="middle" fill="#2b2a28">lark-vc / -wiki</text>
+      </g>
+      <g transform="translate(0 72)">
+        <rect x="0" y="0" width="168" height="28" rx="14" fill="#effaf4" stroke="#3a9a72" stroke-width="1.5"/>
+        <text x="84" y="18" text-anchor="middle" fill="#2b2a28">lark-okr / -minutes</text>
+      </g>
+      <g transform="translate(176 72)">
+        <rect x="0" y="0" width="118" height="28" rx="14" fill="#effaf4" stroke="#3a9a72" stroke-width="1.5"/>
+        <text x="59" y="18" text-anchor="middle" fill="#2b2a28">+ 22 more</text>
+      </g>
+    </g>
+
+    <g transform="translate(296 268) scale(0.45)">
+      <circle cx="0" cy="0" r="24" fill="#d2f3e1" stroke="#2b2a28" stroke-width="3"/>
+      <path d="M -22 -8 Q -24 -22 -8 -24 Q 0 -32 8 -24 Q 24 -22 22 -8" fill="#2b2a28"/>
+      <path d="M -10 -2 Q -7 -6 -4 -2" stroke="#2b2a28" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M 4 -2 Q 7 -6 10 -2" stroke="#2b2a28" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="0" cy="9" rx="3" ry="3.5" fill="#ff6b6b"/>
+      <line x1="0" y1="24" x2="0" y2="66" stroke="#2b2a28" stroke-width="3" stroke-linecap="round"/>
+      <line x1="0" y1="34" x2="-22" y2="18" stroke="#2b2a28" stroke-width="3" stroke-linecap="round"/>
+      <line x1="0" y1="34" x2="22" y2="18" stroke="#2b2a28" stroke-width="3" stroke-linecap="round"/>
+      <!-- chat bubble -->
+      <g transform="translate(14 6)">
+        <rect x="0" y="0" width="22" height="16" rx="6" fill="#fff8ec" stroke="#2b2a28" stroke-width="2"/>
+        <circle cx="6" cy="8" r="1.5" fill="#7edcb6"/>
+        <circle cx="11" cy="8" r="1.5" fill="#7edcb6"/>
+        <circle cx="16" cy="8" r="1.5" fill="#7edcb6"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============ tile 3: practical ============ -->
+  <g transform="translate(798 168)">
+    <rect x="6" y="8" width="346" height="304" rx="26" fill="#2b2a28" opacity="0.08"/>
+    <rect x="0" y="0" width="346" height="304" rx="26" fill="#ffffff" stroke="#2b2a28" stroke-width="2.5"/>
+
+    <path d="M 0 26 Q 0 0 26 0 L 320 0 Q 346 0 346 26 L 346 76 L 0 76 Z" fill="#ffd166"/>
+
+    <text x="26" y="46" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="26" font-weight="900" fill="#2b2a28">practical/</text>
+
+    <g transform="translate(284 38)">
+      <rect x="-30" y="-16" width="60" height="32" rx="16" fill="#fff8ec" stroke="#2b2a28" stroke-width="2"/>
+      <text x="0" y="6" text-anchor="middle" font-family="ui-monospace, monospace" font-size="15" font-weight="900" fill="#2b2a28">56 skills</text>
+    </g>
+
+    <text x="26" y="106" font-size="14" font-weight="700" fill="#7a6a52" letter-spacing="1">ENGINEERING  ·  DESIGN  ·  DOCS</text>
+    <text x="26" y="130" font-size="13" fill="#57606a">18 个独立 + matt-pocock/ 38 个</text>
+
+    <line x1="26" y1="148" x2="320" y2="148" stroke="#ead7b4" stroke-width="1.5" stroke-dasharray="3 4"/>
+
+    <g transform="translate(26 162)" font-family="ui-monospace, monospace" font-size="12" font-weight="700">
+      <g>
+        <rect x="0" y="0" width="148" height="28" rx="14" fill="#fff8e6" stroke="#c79a2e" stroke-width="1.5"/>
+        <text x="74" y="18" text-anchor="middle" fill="#2b2a28">apple-design</text>
+      </g>
+      <g transform="translate(156 0)">
+        <rect x="0" y="0" width="118" height="28" rx="14" fill="#fff8e6" stroke="#c79a2e" stroke-width="1.5"/>
+        <text x="59" y="18" text-anchor="middle" fill="#2b2a28">motion-web</text>
+      </g>
+      <g transform="translate(0 36)">
+        <rect x="0" y="0" width="118" height="28" rx="14" fill="#fff8e6" stroke="#c79a2e" stroke-width="1.5"/>
+        <text x="59" y="18" text-anchor="middle" fill="#2b2a28">officecli</text>
+      </g>
+      <g transform="translate(126 36)">
+        <rect x="0" y="0" width="158" height="28" rx="14" fill="#fff8e6" stroke="#c79a2e" stroke-width="1.5"/>
+        <text x="79" y="18" text-anchor="middle" fill="#2b2a28">pdf / theme-factory</text>
+      </g>
+      <g transform="translate(0 72)">
+        <rect x="0" y="0" width="138" height="28" rx="14" fill="#fff8e6" stroke="#c79a2e" stroke-width="1.5"/>
+        <text x="69" y="18" text-anchor="middle" fill="#2b2a28">tdd / skill-creator</text>
+      </g>
+      <g transform="translate(146 72)">
+        <rect x="0" y="0" width="148" height="28" rx="14" fill="#fff8e6" stroke="#c79a2e" stroke-width="1.5"/>
+        <text x="74" y="18" text-anchor="middle" fill="#2b2a28">matt-pocock/</text>
+      </g>
+    </g>
+
+    <g transform="translate(296 268) scale(0.45)">
+      <circle cx="0" cy="0" r="22" fill="#fff3b8" stroke="#2b2a28" stroke-width="3"/>
+      <circle cx="-8" cy="-2" r="6" fill="none" stroke="#2b2a28" stroke-width="2.5"/>
+      <circle cx="8" cy="-2" r="6" fill="none" stroke="#2b2a28" stroke-width="2.5"/>
+      <line x1="-2" y1="-2" x2="2" y2="-2" stroke="#2b2a28" stroke-width="2.5"/>
+      <circle cx="-8" cy="-2" r="1.5" fill="#2b2a28"/>
+      <circle cx="8" cy="-2" r="1.5" fill="#2b2a28"/>
+      <path d="M -4 10 Q 0 14 4 10" stroke="#2b2a28" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <line x1="0" y1="22" x2="0" y2="64" stroke="#2b2a28" stroke-width="3" stroke-linecap="round"/>
+      <line x1="0" y1="34" x2="-22" y2="18" stroke="#2b2a28" stroke-width="3" stroke-linecap="round"/>
+      <line x1="0" y1="34" x2="20" y2="18" stroke="#2b2a28" stroke-width="3" stroke-linecap="round"/>
+      <!-- wrench -->
+      <g transform="translate(14 4) rotate(35)">
+        <rect x="-2" y="-2" width="18" height="6" rx="1.5" fill="#7a6a52" stroke="#2b2a28" stroke-width="2"/>
+        <path d="M -2 -2 L -8 -2 L -8 4 L -2 4 L -2 6 L 3 4 L 3 -4 L -2 -6 Z" fill="#7a6a52" stroke="#2b2a28" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- footer note -->
+  <g transform="translate(56 498)">
+    <text x="0" y="0" font-family="ui-monospace, monospace" font-size="12" fill="#7a6a52">完整目录见下方 ▾</text>
+  </g>
+  <g transform="translate(1144 498)">
+    <text x="0" y="0" text-anchor="end" font-family="ui-monospace, monospace" font-size="12" fill="#7a6a52">✦ 88 total · 3 categories</text>
   </g>
 </svg>

@@ -1,40 +1,45 @@
 # sunshine-skills
 
 <p align="center">
-  <img src="./assets/readme/hero.svg" width="100%" alt="sunshine-skills — 87 installable Claude Code skills for docs, design, office, web, and lark workflows">
+  <img src="./assets/readme/hero.svg" width="100%" alt="sunshine-skills — 88 个会咬人的技能，三只火柴人带你认识它们">
 </p>
-
-<p align="left">
-  <a href="https://github.com/a-RunShine/sunshine-skills/stargazers"><img src="https://img.shields.io/github/stars/a-RunShine/sunshine-skills?style=flat-square&logo=github&logoColor=white&color=4c1" alt="Stars"></a>
-  <a href="https://github.com/a-RunShine/sunshine-skills/network/members"><img src="https://img.shields.io/github/forks/a-RunShine/sunshine-skills?style=flat-square&logo=github&logoColor=white&color=4c1" alt="Forks"></a>
-  <a href="https://github.com/a-RunShine/sunshine-skills/issues"><img src="https://img.shields.io/github/issues/a-RunShine/sunshine-skills?style=flat-square&logo=github&logoColor=white&color=4c1" alt="Issues"></a>
-  <a href="https://github.com/a-RunShine/sunshine-skills/commits/master"><img src="https://img.shields.io/github/last-commit/a-RunShine/sunshine-skills?style=flat-square&logo=git&logoColor=white&color=4c1" alt="Last Commit"></a>
-</p>
-
-个人收集的 Claude Code Skills 集合。**87 个** skill，按用途分为三类：
-
-- **for-fun/** — 创意 / 玩法类（zine、海报、小红书）
-- **lark-suite/** — 飞书全场景 CLI（lark-cli，26 个业务域）
-- **practical/** — 实用工具与开发流程（含 matt-pocock 工程 skill 集）
-
-## 目录结构
 
 <p align="center">
-  <img src="./assets/readme/tree.svg" width="100%" alt="Skill taxonomy — three top-level categories with skill counts">
+  <a href="https://github.com/a-RunShine/sunshine-skills/stargazers"><img src="https://img.shields.io/github/stars/a-RunShine/sunshine-skills?style=flat-square&logo=github&logoColor=white&color=ff6b6b" alt="Stars"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills/network/members"><img src="https://img.shields.io/github/forks/a-RunShine/sunshine-skills?style=flat-square&logo=github&logoColor=white&color=ff6b6b" alt="Forks"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills/issues"><img src="https://img.shields.io/github/issues/a-RunShine/sunshine-skills?style=flat-square&logo=github&logoColor=white&color=ff6b6b" alt="Issues"></a>
+  <a href="https://github.com/a-RunShine/sunshine-skills/commits/master"><img src="https://img.shields.io/github/last-commit/a-RunShine/sunshine-skills?style=flat-square&logo=git&logoColor=white&color=ff6b6b" alt="Last Commit"></a>
 </p>
+
+> ✿ 个人收集的 **Claude Code Skills** 集合。**88 个**，按性格分成三个小窝，每个都长着一张笑脸。
+
+## 🐣 三只小火柴人带你逛
+
+<p align="center">
+  <img src="./assets/readme/tree.svg" width="100%" alt="sunshine-skills 的分类地图：for-fun、lark-suite、practical 三个目录">
+</p>
+
+- 🌼 **`for-fun/`** — 创意 / 玩法 5 件
+  *zine、海报、漫画、小红书。专门负责把无聊变好看。*
+- 🍃 **`lark-suite/`** — 飞书全场景 CLI 27 件
+  *lark-cli 的 26 个业务域打包带走，文档 / 表格 / 消息 / 视频会议 一把抓。*
+- 🍋 **`practical/`** — 实用工具与开发流程 56 件
+  *设计、动效、文档、Office、PDF、TS 工程、tdd…… 还有 Matt Pocock 风格的工程 skill 集 38 件。*
+
+## 📂 完整目录
 
 ```text
 sunshine-skills/
-├── for-fun/                                # 玩法 / 创意类（5）
+├── for-fun/                                # 🌼 玩法 / 创意类（5）
 │   ├── gc-minimal-zine-poster-v0-1/        # Minimal Zine Poster v0.1 海报提示生成
 │   ├── manga-stories/                      # 竖版 3:4 日式漫画风格图像集
 │   ├── scenes-gathered-zine-v1-3/          # 照片转竖版 3:5 Gathereel 风海报
 │   ├── xiaohongshu-cli/                    # 通过 xiaohongshu-cli 操作小红书
 │   └── xiaohongshu-image-batch/            # 批量制作小红书图文（3:4 竖版，6–8 张一组）
 │
-├── lark-suite/                             # 飞书全场景 CLI（lark-cli，26 业务域，200+ 命令）
+├── lark-suite/                             # 🍃 飞书全场景 CLI（lark-cli，26 业务域，200+ 命令）
 │   ├── SKILL.md                            # 入口
-│   └── skills/                             # 28 个 lark-* 子 skill
+│   └── skills/                             # 27 个 lark-* 子 skill
 │       ├── lark-approval/                  # 审批
 │       ├── lark-apps/                      # 应用管理
 │       ├── lark-attendance/                # 考勤
@@ -63,10 +68,11 @@ sunshine-skills/
 │       ├── lark-workflow-meeting-summary/  # 工作流：会议纪要
 │       └── lark-workflow-standup-report/   # 工作流：站会报告
 │
-└── practical/                              # 实用工具与开发流程（54）
+└── practical/                              # 🍋 实用工具与开发流程（56）
     │
-    │  # ── 独立 skills（17）──
+    │  # ── 独立 skills（18）──
     ├── apple-design/                       # Apple 风格的交互动效与排版设计
+    ├── beautify-github-readme/             # 重塑 GitHub README 首页 / 生成纯 SVG / 混合素材
     ├── eli5/                               # 像给 5 岁孩子那样解释概念
     ├── find-skill/                         # 查找并安装 agent skills（本地缓存）
     ├── find-skills/                        # 同上（skill-creator 体系）
@@ -84,7 +90,7 @@ sunshine-skills/
     ├── web-design-guidelines/              # 按 Web Interface Guidelines 审查 UI
     └── writing-great-skills/               # 编写 / 编辑 skill 的词汇与方法
     │
-    └── matt-pocock/                        # Matt Pocock 风格的工程 skill 集（37）
+    └── matt-pocock/                        # Matt Pocock 风格的工程 skill 集（38）
         ├── ask-matt/                       # 面向 Matt 风格的提问 / 咨询
         ├── claude-handoff/                 # 将当前会话压缩为交接文档
         ├── code-review/                    # 双轴审查（Standards + Spec，并行子代理）
@@ -125,7 +131,7 @@ sunshine-skills/
         └── writing-shape/                  # 形态导向的写作
 ```
 
-## 添加方式
+## 🧸 怎么领养一只回去
 
 ```bash
 # 把整个目录复制到 Claude Code 的 skills 路径下
@@ -134,10 +140,12 @@ cp -r <skill-name> ~/.claude/skills/
 # 或在 Claude Code 中通过 find-skill / find-skills 直接搜索安装
 ```
 
-## License
+## 📜 License
 
 各 skill 遵循其自带的 LICENSE / license 字段（见各子目录）。
 
 ---
 
 > ⚠️ 注意：`find-skill/` 内的 `agents/openai.yaml` 来自原 `claude-skill-find-skill/`，合并前先保留以备回退。
+
+<sub align="center">✦ made with care · 2026.09 ✦</sub>
